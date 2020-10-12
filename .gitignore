@@ -1,0 +1,11 @@
+
+.vagrant/*
+*.log
+.DS_STORE
+
+salt/ukmdatapackage
+!salt/ukmdatapackage/.gitkeep
+
+# Folder struct for NFS sharing
+server_data/*
+!server_data/*.gitkeep
