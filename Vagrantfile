@@ -14,6 +14,26 @@ require './vagrant/dependencies'    # Vagrant plugin dependencies
 require './vagrant/boxconfig'       # Different vagrant-box configs
 require './vagrant/filesystem'      # Utility functions
 
+def commonConf(boxName, box)
+    # Edit disk and memory
+    box.disksize.size = $boxConf[boxName][:disksize]
+    box.vm.network "private_network", ip: $boxConf[boxName][:ip]
+end
+
+def doProvision(boxName, box)
+    box.vm.provision :salt do |salt|
+        #salt.pillar({
+        #    "networking" => {
+        #        "host" => $boxConf['lite'][:hostname],
+        #       "ip" => $boxConf['lite'][:ip]
+        #    }
+        #})
+        salt.minion_config = "salt/vagrant-minion-lite"
+        salt.run_highstate = true
+        salt.verbose = true
+    end
+end
+
 # Configure vagrant!
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Every Vagrant virtual environment requires a box to build off of.
@@ -29,14 +49,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_guest = true
     config.hostmanager.include_offline = true
 
+    config.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", $boxConf['web'][:memory]]
+    end
+
     ## WEB MAIN SERVER (UKM.no)
     config.vm.define "web", primary: true do |web|
-        # Edit disk and memory
-        web.disksize.size = $boxConf['web'][:disksize]
-        config.vm.provider :virtualbox do |vb|
-            vb.customize ["modifyvm", :id, "--memory", $boxConf['web'][:memory]]
-        end
-
+        commonConf('web', web)
 
         # Share wordpress folders
         requireServerDataFolder('plugins') # localNFSpath + server_data/plugins/
@@ -47,41 +66,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         
         # Hostname conf
-        web.vm.network "private_network", ip: $boxConf['web'][:ip]
         web.vm.hostname = "ukm.dev"
         hostname_aliases = Array.new
         
         # Provision (salt-stack)
-        web.vm.provision :salt do |salt|
-            salt.pillar({
-                "networking" => {
-                    "host" => "ukm.dev",
-                    "ip" => $boxConf['web'][:ip]
-                }
-            })
-            salt.minion_config = "salt/vagrant-minion-web"
-            salt.run_highstate = true
-            salt.verbose = true
-        end
+        doProvision('web',web)
     end
 
     ## LITE WEB SERVER (for project fun)
     config.vm.define "lite" do |lite|
+        commonConf('lite', lite)
+
         requireServerDataFolder('lite')
         #lite.vm.synced_folder $localNFSpath + "server_data/lite/www", "/var/www/", type: "nfs", create: true
         
-        lite.vm.network "private_network", ip: $boxConf['web'][:ip]
-        lite.vm.provision :salt do |salt|
-            #salt.pillar({
-            #    "networking" => {
-            #        "host" => $boxConf['lite'][:hostname],
-            #       "ip" => $boxConf['lite'][:ip]
-            #    }
-            #})
-            salt.minion_config = "salt/vagrant-minion-lite"
-            salt.run_highstate = true
-            salt.verbose = true
-        end
+        doProvision('lite',lite)
     end
     
 
