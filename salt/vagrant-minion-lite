@@ -4,3 +4,4 @@ grains:
     hostname: lite.ukm.dev
     roles:
         - phpweb
+        - lite

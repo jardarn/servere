@@ -11,8 +11,13 @@ base:
     'phpweb':
         - composer
 
+    'roles:lite':
+        - match: grain
+        - ukmlib
+
     'roles:main':
         - match: grain
+        - ukmlib
         - ukmno
    
     'roles:videoconverter':
