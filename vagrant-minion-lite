@@ -3,3 +3,4 @@ file_client: local
 grains:
     roles:
         - phpweb
+        - lite

@@ -1,4 +1,4 @@
-{% set ssl = pillar.get( pillar.get('sslConfig') )['ssl'] %}
+{% set ssl = pillar.get( pillar.get('ssl') ) %}
 
 {% for part in ['crt','csr','key'] if ssl[ part ] is defined %}
 ssl-{{ part }}-{{ ssl[ part ]['name']|replace('.','-') }}:

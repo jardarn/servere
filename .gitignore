@@ -9,3 +9,5 @@ salt/ukmdatapackage
 # Folder struct for NFS sharing
 server_data/*
 !server_data/*.gitkeep
+pillar/ssl/init.sls
+pillar/ssl/init.sls

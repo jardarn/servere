@@ -1,0 +1,9 @@
+{
+    "require": {
+        "twig/twig": "^1.0",
+        "phpoffice/phpspreadsheet": "^1.4",
+        "mariusmandal/wpoo": "^1.0",
+        "mariusmandal/ics-gen": "dev-master",
+        "kunalvarma05/dropbox-php-sdk": "^0.2.1"
+    }
+}

@@ -1,8 +1,6 @@
-{% set ukmlib = pillar.get('ukmlib') %}
-{% set ukm = ukmlib.ukm -%}
-{% set apis = ukmlib.apis -%}
+{% set ukm = pillar.get('ukm') -%}
+{% set apis = pillar.get('apis')-%}
 {% set videoconverter = pillar.get('videoconverter', {}) -%}
-{% set cache_key = pillar['tvcache.shared_key'] -%}
 
 <?php
 
@@ -67,7 +65,7 @@ define('UKM_FACE_APP_SECRET', "{{ apis.facebook.app.secret }}");
 define('GOOGLE_API_KEY', '{{ apis.google.key}}');
 
 # MAILCHIMP
-define('MAILCHIMP_API_KEY', '{{ apis.mailchimp.key');
+define('MAILCHIMP_API_KEY', '{{ apis.mailchimp.key }}');
 define('MAILCHIMP_LIST_ID_ARRANGOR','{{ apis.mailchimp.lists.arrangor }}');
 
 # TRELLO

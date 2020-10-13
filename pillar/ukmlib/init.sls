@@ -57,7 +57,6 @@ apis:
             innkjop: dummyinnkjopid
         custom_fields:
             leveres: dummyleveresid
-            
 ukm:
     hostname: ukm.dev
     genericsalt: thisisthegenericsalt

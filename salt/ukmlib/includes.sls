@@ -19,7 +19,7 @@ https://github.com/UKMNorge/UKMapi.git:
 ukmlib-includes-composerfile:
     file.managed:
         - name: /etc/php-libraries/composer.json
-        - source: salt://ukmno/files/composer-includes.json
+        - source: salt://ukmlib/files/composer-includes.json
         - mode: 640
         - user: root
         - group: www-data

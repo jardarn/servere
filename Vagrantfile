@@ -6,6 +6,7 @@ require './vagrant/color'
 
 # Lets get this party started
 puts "Welcome, developer! 😎".green
+puts "Human contact possible @ https://github.com/orgs/UKMNorge/teams/developers".green
 # Global vars
 $localNFSpath = "#{Dir.pwd}/"
 $boxNames = []
@@ -18,20 +19,26 @@ def commonConf(boxName, box)
     # Edit disk and memory
     box.disksize.size = $boxConf[boxName][:disksize]
     box.vm.network "private_network", ip: $boxConf[boxName][:ip]
+    box.vm.hostname = $boxConf[boxName][:hostname]
 end
 
 def doProvision(boxName, box)
     box.vm.provision :salt do |salt|
-        #salt.pillar({
-        #    "networking" => {
-        #        "host" => $boxConf['lite'][:hostname],
-        #       "ip" => $boxConf['lite'][:ip]
-        #    }
-        #})
+        salt.pillar({
+            "networking" => {
+                "host" => $boxConf[boxName][:hostname],
+                "ip" => $boxConf[boxName][:ip]
+            }
+        })
         salt.minion_config = "salt/vagrant-minion-lite"
         salt.run_highstate = true
         salt.verbose = true
     end
+end
+
+def share(box, localpath, serverpath)   
+    requireServerDataFolder(localpath)
+    box.vm.synced_folder $localNFSpath + "server_data/" + localpath, serverpath, type: "nfs", create: true
 end
 
 # Configure vagrant!
@@ -58,12 +65,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         commonConf('web', web)
 
         # Share wordpress folders
-        requireServerDataFolder('plugins') # localNFSpath + server_data/plugins/
-        #web.vm.synced_folder $localNFSpath + "server_data/plugins", "/var/www/wordpress/wp-content/plugins/", type: "nfs", create: true #,mount_options: ["uid=501", "gid=501"]
-        #web.vm.synced_folder localNFSpath + "server_data/themes", "/var/www/wordpress/wp-content/themes/", type: "nfs", create: true #,mount_options: ["uid=501", "gid=501"]
-        #web.vm.synced_folder localNFSpath + "server_data/ukmapi", "/etc/php-includes/UKM/", type: "nfs", create: true #,mount_options: ["uid=501", "gid=501"]
-        #web.vm.synced_folder localNFSpath + "server_data/subdomains/datakultur", "/var/www/datakultur/", type: "nfs", create: true #,mount_options: ["uid=501", "gid=501"]
-
+        share(web, 'plugins', '/var/www/wordpress/wp-content/plugins/')
+        share(web, 'themes', '/var/www/wordpress/wp-content/themes/')
+        share(web, 'ukmlib', '/etc/php-includes/UKM/')
+        share(web, 'subdomains/datakultur', '/var/www/datakultur/')
         
         # Hostname conf
         web.vm.hostname = "ukm.dev"
@@ -76,10 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ## LITE WEB SERVER (for project fun)
     config.vm.define "lite" do |lite|
         commonConf('lite', lite)
-
-        requireServerDataFolder('lite')
-        #lite.vm.synced_folder $localNFSpath + "server_data/lite/www", "/var/www/", type: "nfs", create: true
-        
+        share(lite, 'lite', '/var/www/')        
         doProvision('lite',lite)
     end
     
