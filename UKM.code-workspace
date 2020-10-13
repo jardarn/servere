@@ -1,7 +1,17 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": ".",
+			"name": "Vagrant"
+		},
+		{
+			"path": "./server_data/",
+			"name": "Server_data"
 		}
-	]
+	],
+	"settings": {
+		"files.exclude": {
+			"*server_data/": true
+		}
+	}
 }
