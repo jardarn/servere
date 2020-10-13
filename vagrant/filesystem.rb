@@ -7,3 +7,9 @@ def requireServerDataFolder(relative_directory)
     end
     return true
 end
+
+# Share folder between vm and host
+def share(box, localpath, serverpath)   
+    requireServerDataFolder(localpath)
+    box.vm.synced_folder $localNFSpath + "server_data/" + localpath, serverpath, type: "nfs", create: true
+end
