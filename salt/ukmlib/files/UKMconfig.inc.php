@@ -1,5 +1,5 @@
-{% set ukm = pillar.get('ukm') -%}
-{% set apis = pillar.get('apis')-%}
+{% set ukm = pillar.get('ukm', {}) %}
+{% set apis = pillar.get('apis', {}) %}
 {% set videoconverter = pillar.get('videoconverter', {}) -%}
 
 <?php
@@ -46,9 +46,9 @@ define('UKM_DELTA_DB_WRITE_PASSWORD', '{{ ukm.database.delta.users.user_write.pa
 define('UKM_VIDEOCONVERTER_DB_USER', '{{ videoconverter.database.user }}');
 define('UKM_VIDEOCONVERTER_DB_PASS', '{{ videoconverter.database.pass }}');
 /* Shared secret needed to upload to the videostorage server */
-define('UKM_VIDEOSTORAGE_UPLOAD_KEY', '{{ videoconverter.keys.upload }}');
+define('UKM_VIDEOSTORAGE_UPLOAD_KEY', '{{ videoconverter.upload_key }}');
 /* Shared secret needed for caches to report in, or to fetch the cache listing */
-define('UKM_CACHE_KEY', '{{ videoconverter.keys.cache }}');
+define('UKM_CACHE_KEY', '{{ videoconverter.cache_key }}');
 
 ## EXTERNAL APIS
 # SVEVE
@@ -88,7 +88,7 @@ define('FLICKR_ENDPOINT', '{{ apis.flickr.app.endpoint }}');
 
 define('FLICKR_AUTH_USER', '{{ apis.flickr.user.id }}');
 define('FLICKR_AUTH_TOKEN', '{{ apis.flickr.user.token }}');
-define('FLICKR_AUTH_SECRET', '{{ apis.flickr.secret }}');
+define('FLICKR_AUTH_SECRET', '{{ apis.flickr.user.secret }}');
 
 # DROPBOX
 define('DROPBOX_APP_NAME', '{{ apis.dropbox.app.name }}');
@@ -108,12 +108,12 @@ define('UKM_INSTRATO_PEPPER', '@90#%');
 define('UKM_INSTRATO_SALT', 'UKMhash');
 
 # SLACK
-define('SLACK_CLIENT_ID', '{{ slack.client.id }}');
-define('SLACK_CLIENT_SECRET', '{{ slack.client.secret }}');
-define('SLACK_SIGNING_SECRET', '{{ slack.client.signing_secret }}');
-define('SLACK_SHAREABLE_URL', '{{ slack.client.shareable_url }}');
-define('SLACK_UKMNORGE_TEAM_ID', '{{ slack.teams.ukmnorge }}');
-define('SLACK_UKMMEDIA_TEAM_ID', '{{ slack.teams.ukmmedia }}');
+define('SLACK_CLIENT_ID', '{{ apis.slack.client.id }}');
+define('SLACK_CLIENT_SECRET', '{{ apis.slack.client.secret }}');
+define('SLACK_SIGNING_SECRET', '{{ apis.slack.client.signing_secret }}');
+define('SLACK_SHAREABLE_URL', '{{ apis.slack.client.shareable_url }}');
+define('SLACK_UKMNORGE_TEAM_ID', '{{ apis.slack.teams.ukmnorge }}');
+define('SLACK_UKMMEDIA_TEAM_ID', '{{ apis.slack.teams.ukmmedia }}');
 
 ## FILER
 # BILDER

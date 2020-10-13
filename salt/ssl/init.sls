@@ -1,10 +1,10 @@
-{% set ssl = pillar.get( pillar.get('ssl') ) %}
+{% set ssl = pillar.get('ssl', {}) %}
 
 {% for part in ['crt','csr','key'] if ssl[ part ] is defined %}
 ssl-{{ part }}-{{ ssl[ part ]['name']|replace('.','-') }}:
     file.managed:
         - name: /etc/apache2/ssl/{{ ssl[part]['name'] }}.{{ part }}
-        - contents_pillar: {{ pillar.get('sslConfig') ~':ssl:'~ part ~':data' }}
+        - contents_pillar: {{'ssl:'~ part ~':data'}}
         - mode: 640
         - user: root
         - group: www-data

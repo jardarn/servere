@@ -2,8 +2,10 @@ base:
     '*':
         - networking
         - security
+        - ssl
         - vim
         - swap
+        - ukmboxes
 
     'vagrant':
         - samba

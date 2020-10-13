@@ -13,7 +13,7 @@ ukm-database-wp:
 
     file.managed:
         - name: /etc/mysql/ukmdev_dev_wp.sql
-        - source: salt://ukmdatapackage/ukmdev_dev_wp.sql
+        - source: salt://ukmlib/datapackage/ukmdev_dev_wp.sql
         - require:
             - pkg: mysql-server
 
@@ -35,7 +35,7 @@ ukm-database-ss3:
 
     file.managed:
         - name: /etc/mysql/ukmdev_dev_ss3.sql
-        - source: salt://ukmdatapackage/ukmdev_dev_ss3.sql
+        - source: salt://ukmlib/datapackage/ukmdev_dev_ss3.sql
         - require:
             - pkg: mysql-server
 

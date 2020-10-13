@@ -3,8 +3,8 @@
 *.log
 .DS_STORE
 
-salt/ukmdatapackage
-!salt/ukmdatapackage/.gitkeep
+salt/*/datapackage
+!salt/*/datapackage/.gitkeep
 
 pillar/ssl/init.sls
 

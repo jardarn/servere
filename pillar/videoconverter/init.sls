@@ -3,6 +3,5 @@ videoconverter:
         name: videoconverter
         user: videoconverter
         pass: dev
-    keys:
-        upload: supersecret
-        cache: ''
+    upload_key: supersecret
+    cache_key: ''
