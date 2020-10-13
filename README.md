@@ -12,7 +12,7 @@ Installasjon
 4. Klon dette repoet til din maskin
 5. Pakk ut datafilene (fra pkt 3) i repoet, under `salt/ukmlib/datapackage/`
 6. Flytt `salt/ukmlib/datapackage/init.sls` til `pillar/ssl/init.sls`
-6. Legg til SSL-sertifikatet (som du får tilsendt sammen med datafilene) i din keychain / nettleser
+6. Legg til SSL-sertifikatet `salt/ukmlib/datapackage/UKMNorgeCA.pem` i din keychain / nettleser
 7. Når du starter en VM, vil vagrant sjekke at du har riktige vagrant-plugins installert, og eventuelt fortelle deg hvordan du installerer disse.
 
 ### Starte opp en VM
