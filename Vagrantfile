@@ -15,6 +15,7 @@ require './vagrant/dependencies'    # Vagrant plugin dependencies
 require './vagrant/boxconfig'       # Different vagrant-box configs
 require './vagrant/filesystem'      # Utility functions
 
+# Set configs common for all boxes
 def commonConf(boxName, box)
     # Edit disk and memory
     box.disksize.size = $boxConf[boxName][:disksize]
@@ -22,6 +23,7 @@ def commonConf(boxName, box)
     box.vm.hostname = $boxConf[boxName][:hostname]
 end
 
+# Actually run salt-provisioning
 def doProvision(boxName, box)
     box.vm.provision :salt do |salt|
         salt.pillar({
@@ -36,6 +38,7 @@ def doProvision(boxName, box)
     end
 end
 
+# Share folder between vm and host
 def share(box, localpath, serverpath)   
     requireServerDataFolder(localpath)
     box.vm.synced_folder $localNFSpath + "server_data/" + localpath, serverpath, type: "nfs", create: true
