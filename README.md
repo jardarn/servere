@@ -61,3 +61,20 @@ MySQL:
     Database: ukmdev_dev_ss3 | ukmdelta_db | ukmdev_dev_wp
     Port: 3306
 ```
+
+De ulike VM'ene
+===
+
+## Lite
+Lite-maskinen kan du bruke for å kjøre opp enkle kode-prosjekter. Denne svarer på https://lite.ukm.dev, og alt du putter i `/server_data/lite/` havner i `/var/www/` på VM'en. 
+
+Databasen kjøres lokalt på VM'en med testdata, og du har tilgang til [UKMlib](https://github.com/UKMNorge/UKMAPI/) under `server_data/ukmlib/`.
+
+
+For å aksessere [UKMlib](https://github.com/UKMNorge/UKMAPI) i koden din, trenger du bare:
+```php
+require_once('UKM/Autoloader.php');
+```
+
+## Web
+"Web-serveren vår". Her kjører vi wordpress (https://ukm.dev), og de fleste subdomenene på *.ukm.dev. Gir deg full tilgang til arrangørsystem, påmeldingssystem, nettsider osv. (og fungerer ikke atm 😬)
