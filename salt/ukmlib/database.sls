@@ -1,5 +1,5 @@
 {% set mysql = pillar.get('mysql') %}
-{% set ukm = pillar.get('ukmlib') %}
+{% set ukm = pillar.get('ukm') %}
 
 ## CREATE DATABASES
 ukm-database-wp:
@@ -46,7 +46,7 @@ ukm-database-ss3:
         - watch:
             - file: ukm-database-ss3
 
-{% for database_key in ukm.database %}
+{% for database_key in ukm.database if database_key != 'host' %}
     {% set database = ukm.database[ database_key ] %}
     {% for user_key in database.users %}
         {% set user = database.users[ user_key ] %}

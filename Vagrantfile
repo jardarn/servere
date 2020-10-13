@@ -5,44 +5,20 @@ VAGRANTFILE_API_VERSION = "2"
 require './vagrant/color'
 
 # Lets get this party started
-puts "Welcome, developer! 😎".green
-puts "Human contact possible @ https://github.com/orgs/UKMNorge/teams/developers".green
+if !ARGV.include?("halt") && !ARGV.include?("destroy")
+    puts "Welcome, developer! 😎".green
+    puts "Human contact possible @ https://github.com/orgs/UKMNorge/teams/developers".green
+end
+
 # Global vars
 $localNFSpath = "#{Dir.pwd}/"
 $boxNames = []
+
 # Files we kinda need
 require './vagrant/dependencies'    # Vagrant plugin dependencies
 require './vagrant/boxconfig'       # Different vagrant-box configs
-require './vagrant/filesystem'      # Utility functions
-
-# Set configs common for all boxes
-def commonConf(boxName, box)
-    # Edit disk and memory
-    box.disksize.size = $boxConf[boxName][:disksize]
-    box.vm.network "private_network", ip: $boxConf[boxName][:ip]
-    box.vm.hostname = $boxConf[boxName][:hostname]
-end
-
-# Actually run salt-provisioning
-def doProvision(boxName, box)
-    box.vm.provision :salt do |salt|
-        salt.pillar({
-            "networking" => {
-                "host" => $boxConf[boxName][:hostname],
-                "ip" => $boxConf[boxName][:ip]
-            }
-        })
-        salt.minion_config = "salt/vagrant-minion-lite"
-        salt.run_highstate = true
-        salt.verbose = true
-    end
-end
-
-# Share folder between vm and host
-def share(box, localpath, serverpath)   
-    requireServerDataFolder(localpath)
-    box.vm.synced_folder $localNFSpath + "server_data/" + localpath, serverpath, type: "nfs", create: true
-end
+require './vagrant/filesystem'      # File system functions
+require './vagrant/utils'           # VM conf utilities
 
 # Configure vagrant!
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -85,6 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "lite" do |lite|
         commonConf('lite', lite)
         share(lite, 'lite', '/var/www/')        
+        share(lite, 'ukmlib', '/etc/php-includes/UKM/')
         doProvision('lite',lite)
     end
     

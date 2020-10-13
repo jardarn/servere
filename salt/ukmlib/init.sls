@@ -5,6 +5,7 @@ include:
     - ssl
     - composer
     - ukmlib.config
+    - ukmlib.database
     - ukmlib.includes
 
 ukmlib-deps:

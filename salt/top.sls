@@ -12,13 +12,16 @@ base:
 
     'phpweb':
         - composer
+        - mysql
 
     'roles:lite':
         - match: grain
+        - mysql
         - ukmlib
 
     'roles:main':
         - match: grain
+        - mysql
         - ukmlib
         - ukmno
    

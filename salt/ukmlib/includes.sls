@@ -15,6 +15,14 @@ https://github.com/UKMNorge/UKMapi.git:
         - require:
             - ukmlib-includes-deps
 
+ukmapi-composer:
+    cmd.run:
+        - name: composer install
+        - cwd: /etc/php-includes/UKM
+        - require:
+            - https://github.com/UKMNorge/UKMapi.git
+            - composer
+
 # LIB-COMPOSER 
 ukmlib-includes-composerfile:
     file.managed:
