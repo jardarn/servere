@@ -16,7 +16,7 @@ Installasjon
 7. Når du starter en VM, vil vagrant sjekke at du har riktige vagrant-plugins installert, og eventuelt fortelle deg hvordan du installerer disse.
 
 ### Starte opp en VM
-Vi anbefaler å starte opp en spesifikk VM, hvor role kan være `lite`, ~~`web`, `playback`, `videoconverter`, `videostorage` eller `videocache`~~. Dette gjør du med:
+Vi anbefaler å starte opp en spesifikk VM, hvor `<role>` er være en av de [ulike VM'ene](#de-ulike-vmene) (`lite`, ~~`web`~~, ~~`playback`~~, ~~`videoconverter`~~, ~~`videostorage`~~ eller ~~`videocache`~~). Dette gjør du med:
 
 `$ vagrant up <role> `
 
