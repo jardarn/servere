@@ -5,6 +5,7 @@ box-lite-vhost:
         - template: jinja
         - defaults:
             hostname: lite.ukm.dev
+            document_root: lite/
         - require:
             - pkg: apache
             - ssl-key-ukm-dev

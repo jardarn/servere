@@ -65,7 +65,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         hostname_aliases << 'ukm.dev'
 
         # Share before provision, in case host has existing files
-        share(lite, 'lite', '/var/www/')        
+        share(lite, 'lite', '/var/www/lite/')        
         share(lite, 'ukmlib', '/etc/php-includes/UKM/')
 
         # Provision (salt-stack)
