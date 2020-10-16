@@ -1,0 +1,7 @@
+id: vagrant
+file_client: local
+grains:
+    hostname: ukm.dev
+    roles:
+        - phpweb
+        - web
