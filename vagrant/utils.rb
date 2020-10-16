@@ -2,15 +2,8 @@
 def commonConf(boxName, box)
     # Edit disk and memory
     box.disksize.size = $boxConf[boxName][:disksize]
+    box.vm.network "private_network", ip: $boxConf[boxName][:ip]
     box.vm.hostname = $boxConf[boxName][:hostname]
-    
-    if ARGV.include?("shellNetwork")
-        print('Bruker shellNetwork'.yellow)
-        box.vm.network "private_network", ip: $boxConf[boxName][:ip], auto_config: false
-        box.vm.provision 'shell', inline: "ifconfig eth1 "+ $boxConf[boxName][:ip]
-    else    
-        box.vm.network "private_network", ip: $boxConf[boxName][:ip]
-    end
 end
 
 # Actually run salt-provisioning
