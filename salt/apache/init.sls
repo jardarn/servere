@@ -36,6 +36,7 @@ php-a2enmod:
 php-a2enmod-rewrite:
     cmd.run:
         - name: a2enmod rewrite
+        - unless: test -f /etc/apache2/mods-enabled/rewrite.load
         - watch_in: 
             service: apache
 
