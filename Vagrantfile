@@ -61,12 +61,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "lite" do |lite|
         commonConf('lite', lite)
 
+        hostname_aliases = Array.new
+        hostname_aliases << 'ukm.dev'
+
         # Share before provision, in case host has existing files
         share(lite, 'lite', '/var/www/')        
         share(lite, 'ukmlib', '/etc/php-includes/UKM/')
 
         # Provision (salt-stack)
         doProvision('lite',lite)
+
+        lite.hostmanager.aliases = hostname_aliases
     end
     
 
