@@ -60,8 +60,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ## LITE WEB SERVER (for project fun)
     config.vm.define "lite" do |lite|
         commonConf('lite', lite)
+
+        # Share before provision, in case host has existing files
         share(lite, 'lite', '/var/www/')        
         share(lite, 'ukmlib', '/etc/php-includes/UKM/')
+
+        # Provision (salt-stack)
         doProvision('lite',lite)
     end
     
