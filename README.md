@@ -62,6 +62,24 @@ MySQL:
     Port: 3306
 ```
 
+# Tips på veien
+
+## Shared Folders (Mac Os)
+Hvis du hele tiden må skrive inn host-passordet i OS X for å sette opp networking ifbm. NFS og shared folders kan du gjøre det følgende for å fikse på det:
+
+- `sudo visudo` - Bla deg til enden av filen, trykk `i` for å gå i Insert Mode.
+- Lim inn følgende: 
+```
+        Cmnd_Alias VAGRANT_EXPORTS_ADD = /usr/bin/tee -a /etc/exports
+        Cmnd_Alias VAGRANT_NFSD = /sbin/nfsd restart
+        Cmnd_Alias VAGRANT_EXPORTS_REMOVE = /usr/bin/sed -E -e /*/ d -ibak /etc/exports
+        %admin ALL=(root) NOPASSWD: VAGRANT_EXPORTS_ADD, VAGRANT_NFSD, VAGRANT_EXPORTS_REMOVE
+```
+- Trykk `ESC` for å gå ut av Insert Mode
+- Trykk `:w` for å lagre.
+- Trykk `:q:` for å avslutte redigering (`:q!` for å avslutte uten å lagre).
+
+
 De ulike VM'ene
 ===
 
