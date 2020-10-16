@@ -15,7 +15,7 @@ def doProvision(boxName, box)
                 "ip" => $boxConf[boxName][:ip]
             }
         })
-        salt.minion_config = "salt/vagrant-minion-lite"
+        salt.minion_config = "salt/vagrant-minion-"+ boxName
         salt.run_highstate = true
         salt.verbose = true
     end
