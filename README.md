@@ -79,6 +79,10 @@ Hvis du hele tiden må skrive inn host-passordet i OS X for å sette opp network
 - Trykk `:w` for å lagre.
 - Trykk `:q:` for å avslutte redigering (`:q!` for å avslutte uten å lagre).
 
+## Windows: "The guest additions on this VM do not match the installed version of"
+Prøv 
+`$ vagrant plugin install vagrant-vbguest` [takk til Shamli Singh](https://medium.com/@botdotcom/installing-virtualbox-and-vagrant-on-windows-10-2e5cbc6bd6ad)
+
 
 De ulike VM'ene
 ===
