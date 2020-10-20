@@ -40,22 +40,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ## WEB MAIN SERVER (UKM.no)
-    config.vm.define "web", primary: true do |web|
-        commonConf('web', web)
+    #config.vm.define "web", primary: true do |web|
+    #    commonConf('web', web)
 
         # Share wordpress folders
-        share(web, 'plugins', '/var/www/wordpress/wp-content/plugins/')
-        share(web, 'themes', '/var/www/wordpress/wp-content/themes/')
-        share(web, 'ukmlib', '/etc/php-includes/UKM/')
-        share(web, 'subdomains/datakultur', '/var/www/datakultur/')
+    #    share(web, 'plugins', '/var/www/wordpress/wp-content/plugins/')
+    #    share(web, 'themes', '/var/www/wordpress/wp-content/themes/')
+    #    share(web, 'ukmlib', '/etc/php-includes/UKM/')
+    #    share(web, 'subdomains/datakultur', '/var/www/datakultur/')
         
         # Hostname conf
-        web.vm.hostname = "ukm.dev"
-        hostname_aliases = Array.new
+    #    web.vm.hostname = "ukm.dev"
+    #    hostname_aliases = Array.new
         
         # Provision (salt-stack)
-        doProvision('web',web)
-    end
+    #    doProvision('web',web)
+    #end
 
     ## LITE WEB SERVER (for project fun)
     config.vm.define "lite" do |lite|
