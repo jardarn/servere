@@ -1,3 +1,11 @@
+{% if 'lite' in grains['roles'] %}
+include:
+    - subdomains.lite
+{% elif 'web' in grais['roles'] %}
+include:
+    - subdomains.web
+{% endif %}
+
 ukm:
     hostname: ukm.dev
     genericsalt: thisisthegenericsalt
