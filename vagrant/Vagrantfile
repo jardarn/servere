@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
     config.hostmanager.manage_guest = true
-    config.hostmanager.include_offline = true
+    config.hostmanager.include_offline = true   # So every box knows each other, even if currently offline
 
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", $boxConf['web'][:memory]]

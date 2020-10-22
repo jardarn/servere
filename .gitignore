@@ -11,3 +11,5 @@ vagrant/pillar/ssl/init.sls
 # Folder struct for NFS sharing
 server_data/*
 !server_data/*.gitkeep
+shared/*
+!shared/*.gitkeep
