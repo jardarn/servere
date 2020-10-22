@@ -13,4 +13,4 @@ ukmno-api:
         - name: https://github.com/UKMNorge/UKMapi_public.git
         - target: /var/www/api
         - require:
-            - pkg: ukmlib-deps
+            - pkg: ukmlib

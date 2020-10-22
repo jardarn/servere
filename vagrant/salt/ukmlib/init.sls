@@ -8,7 +8,7 @@ include:
     - ukmlib.database
     - ukmlib.includes
 
-ukmlib-deps:
+ukmlib:
     pkg.installed:
         - pkgs:
             - git

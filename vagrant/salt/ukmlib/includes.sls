@@ -6,7 +6,7 @@ ukmlib-includes-deps:
         - group: www-data
         - mode: 755
         - require:
-            - ukmlib-deps
+            - ukmlib
             
 ## PHP INCLUDES
 https://github.com/UKMNorge/UKMapi.git:

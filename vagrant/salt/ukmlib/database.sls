@@ -8,7 +8,7 @@ ukm-database-wp:
         - host: localhost
         - connection_pass: {{ mysql.root_pass }}
         - require:
-            - pkg: ukmlib-deps
+            - pkg: ukmlib
             - service: mysql-server
 
     file.managed:
@@ -30,7 +30,7 @@ ukm-database-ss3:
         - host: localhost
         - connection_pass: {{ mysql.root_pass }}
         - require:
-            - pkg: ukmlib-deps
+            - pkg: ukmlib
             - service: mysql-server
 
     file.managed:
