@@ -1,12 +1,12 @@
 
-.vagrant/*
+*/.vagrant/*
 *.log
 .DS_STORE
 
-salt/*/datapackage
-!salt/*/datapackage/.gitkeep
+vagrant/salt/*/datapackage
+!vagrant/salt/*/datapackage/.gitkeep
 
-pillar/ssl/init.sls
+vagrant/pillar/ssl/init.sls
 
 # Folder struct for NFS sharing
 server_data/*

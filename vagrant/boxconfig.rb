@@ -1,7 +1,7 @@
 $boxConf = {}
 
-Dir.foreach('./vagrant/boxconfig') do |filename|
+Dir.foreach('./boxconfig') do |filename|
     next if filename == '.' or filename == '..'
     $boxNames << filename
-    require "./vagrant/boxconfig/#{filename}"
+    require "./boxconfig/#{filename}"
 end

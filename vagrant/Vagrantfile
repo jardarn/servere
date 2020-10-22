@@ -2,7 +2,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 # Require colors..
-require './vagrant/color'
+require './color'
 
 # Lets get this party started
 if !ARGV.include?("halt") && !ARGV.include?("destroy")
@@ -15,10 +15,10 @@ $localNFSpath = "#{Dir.pwd}/"
 $boxNames = []
 
 # Files we kinda need
-require './vagrant/dependencies'    # Vagrant plugin dependencies
-require './vagrant/boxconfig'       # Different vagrant-box configs
-require './vagrant/filesystem'      # File system functions
-require './vagrant/utils'           # VM conf utilities
+require './dependencies'    # Vagrant plugin dependencies
+require './boxconfig'       # Different vagrant-box configs
+require './filesystem'      # File system functions
+require './utils'           # VM conf utilities
 
 # Configure vagrant!
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -40,22 +40,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ## WEB MAIN SERVER (UKM.no)
-    #config.vm.define "web", primary: true do |web|
-    #    commonConf('web', web)
+    config.vm.define "web", primary: true do |web|
+        commonConf('web', web)
 
         # Share wordpress folders
-    #    share(web, 'plugins', '/var/www/wordpress/wp-content/plugins/')
-    #    share(web, 'themes', '/var/www/wordpress/wp-content/themes/')
-    #    share(web, 'ukmlib', '/etc/php-includes/UKM/')
-    #    share(web, 'subdomains/datakultur', '/var/www/datakultur/')
+        share(web, 'web/plugins', '/var/www/wordpress/wp-content/plugins/')
+        share(web, 'web/themes', '/var/www/wordpress/wp-content/themes/')
+        share(web, 'web/ukmlib', '/etc/php-includes/UKM/')
         
         # Hostname conf
-    #    web.vm.hostname = "ukm.dev"
-    #    hostname_aliases = Array.new
+        web.vm.hostname = "ukm.dev"
+        hostname_aliases = Array.new
         
         # Provision (salt-stack)
-    #    doProvision('web',web)
-    #end
+        doProvision('web',web)
+    end
 
     ## LITE WEB SERVER (for project fun)
     config.vm.define "lite" do |lite|
@@ -65,9 +64,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         hostname_aliases << 'ukm.dev'
 
         # Share before provision, in case host has existing files
-        share(lite, 'lite', '/var/www/lite/')        
-        share(lite, 'ukmlib', '/etc/php-includes/UKM/')
-
+        share(lite, 'lite/www', '/var/www/lite/')        
+        share(lite, 'lite/ukmlib', '/etc/php-includes/UKM/')
+        
         # Provision (salt-stack)
         doProvision('lite',lite)
 

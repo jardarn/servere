@@ -1,3 +1,7 @@
+box-lite-www-folder:
+    file.directory:
+        - name: /var/www/lite/
+
 box-lite-vhost:
     file.managed:
         - name: /etc/apache2/sites-enabled/lite.ukm.dev.conf

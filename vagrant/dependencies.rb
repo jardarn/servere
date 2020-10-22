@@ -1,14 +1,16 @@
 ## REQUIRE VAGRANT PLUGINS
 doAbort = false
-['vagrant-hostmanager','vagrant-disksize'].each do |plugin|
+plugins = ['vagrant-hostmanager','vagrant-disksize']
+plugins.each do |plugin|
     unless Vagrant.has_plugin?("#{plugin}")
-        puts "Missing required vagrant plugin: `#{plugin}`. To install, run:".red
-        puts "$ vagrant plugin install #{plugin}".yellow
+        puts "Missing required vagrant plugin: `#{plugin}`.".red
         doAbort = true
     end
 end
 
-if doAbort 
+if doAbort
+    puts "To install missing plugins, run:".red
+    puts "$ vagrant plugin install #{plugins.join(' ')}".yellow
     abort
 end
 

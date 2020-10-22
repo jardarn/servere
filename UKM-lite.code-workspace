@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "vagrant",
+			"name": "Vagrant"
+		},
+		{
+			"path": "./server_data/lite/",
+			"name": "VM: lite"
+		},
+		{
+			"path": "./server_data/web/",
+			"name": "VM: web"
+		},
+	],
+	"settings": {
+		"search.exclude": {
+			"**/vendor/*": true
+		}
+	}
+}
