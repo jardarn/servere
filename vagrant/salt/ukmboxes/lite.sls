@@ -13,6 +13,7 @@ box-lite-vhost:
         - require:
             - pkg: apache
             - ssl-key-ukm-dev
+            - box-lite-www-folder
         - watch_in:
             - service: apache
 
