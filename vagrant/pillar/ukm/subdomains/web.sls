@@ -13,7 +13,3 @@ subdomains:
         box: web
         subdomain: slack
         github: https://github.com/UKMNorge/Slack.git
-    test:
-        box: lite
-        subdomain: test
-        github: https://github.com/UKMNorge/Slack.git
