@@ -1,5 +1,4 @@
 {% set ukm = pillar.get('ukm', {}) %}
-{% set apis = pillar.get('apis', {}) %}
 {% set videoconverter = pillar.get('videoconverter', {}) -%}
 
 <?php
@@ -50,70 +49,70 @@ define('UKM_VIDEOSTORAGE_UPLOAD_KEY', '{{ videoconverter.upload_key }}');
 /* Shared secret needed for caches to report in, or to fetch the cache listing */
 define('UKM_CACHE_KEY', '{{ videoconverter.cache_key }}');
 
-## EXTERNAL APIS
+## EXTERNAL ukm.apis
 # SVEVE
-define('UKM_SVEVE_ACCOUNT', '{{apis.sveve.account}}');
+define('UKM_SVEVE_ACCOUNT', '{{ukm.apis.sveve.account}}');
 
 # LIVESTREAM
-define('LIVESTREAM_EMAIL','{{apis.livestream.email}}');
+define('LIVESTREAM_EMAIL','{{ukm.apis.livestream.email}}');
 
 # FACEBOOK
-define('UKM_FACE_APP_ID', '{{ apis.facebook.app.id}}');
-define('UKM_FACE_APP_SECRET', "{{ apis.facebook.app.secret }}");
+define('UKM_FACE_APP_ID', '{{ ukm.apis.facebook.app.id}}');
+define('UKM_FACE_APP_SECRET', "{{ ukm.apis.facebook.app.secret }}");
 
 # GOOGLE
-define('GOOGLE_API_KEY', '{{ apis.google.key}}');
+define('GOOGLE_API_KEY', '{{ ukm.apis.google.key}}');
 
 # MAILCHIMP
-define('MAILCHIMP_API_KEY', '{{ apis.mailchimp.key }}');
-define('MAILCHIMP_LIST_ID_ARRANGOR','{{ apis.mailchimp.lists.arrangor }}');
+define('MAILCHIMP_API_KEY', '{{ ukm.apis.mailchimp.key }}');
+define('MAILCHIMP_LIST_ID_ARRANGOR','{{ ukm.apis.mailchimp.lists.arrangor }}');
 
 # TRELLO
-define('TRELLO_APP_KEY', '{{ apis.trello.app.key }}');
-define('TRELLO_APP_TOKEN', '{{ apis.trello.app.token }}');
+define('TRELLO_APP_KEY', '{{ ukm.apis.trello.app.key }}');
+define('TRELLO_APP_TOKEN', '{{ ukm.apis.trello.app.token }}');
 
 # TRELLO: /kjøp
-define('TRELLO_BOARD_INNKJOP', '{{ apis.trello.boards.innkjop }}');
-define('TRELLO_CUSTOM_LEVERES', '{{ apis.trello.custom_fields.leveres }}');
+define('TRELLO_BOARD_INNKJOP', '{{ ukm.apis.trello.boards.innkjop }}');
+define('TRELLO_CUSTOM_LEVERES', '{{ ukm.apis.trello.custom_fields.leveres }}');
 
 # INSTRATO
-define('INSTAGRAM_CLIENT_ID', '{{ apis.instagram.client.id }}');
-define('INSTAGRAM_CLIENT_SECRET', '{{ apis.instagram.client.secret }}');
-define('INSTAGRAM_AUTHORIZATION_REDIRECT_URI', '{{ apis.instagram.client.auth_redirect }}');
+define('INSTAGRAM_CLIENT_ID', '{{ ukm.apis.instagram.client.id }}');
+define('INSTAGRAM_CLIENT_SECRET', '{{ ukm.apis.instagram.client.secret }}');
+define('INSTAGRAM_AUTHORIZATION_REDIRECT_URI', '{{ ukm.apis.instagram.client.auth_redirect }}');
 
 # FLICKR
-define('FLICKR_API_KEY', '{{ apis.flickr.app.key}}');
-define('FLICKR_API_SECRET', '{{ apis.flickr.app.secret}}');
-define('FLICKR_ENDPOINT', '{{ apis.flickr.app.endpoint }}');
+define('FLICKR_API_KEY', '{{ ukm.apis.flickr.app.key}}');
+define('FLICKR_API_SECRET', '{{ ukm.apis.flickr.app.secret}}');
+define('FLICKR_ENDPOINT', '{{ ukm.apis.flickr.app.endpoint }}');
 
-define('FLICKR_AUTH_USER', '{{ apis.flickr.user.id }}');
-define('FLICKR_AUTH_TOKEN', '{{ apis.flickr.user.token }}');
-define('FLICKR_AUTH_SECRET', '{{ apis.flickr.user.secret }}');
+define('FLICKR_AUTH_USER', '{{ ukm.apis.flickr.user.id }}');
+define('FLICKR_AUTH_TOKEN', '{{ ukm.apis.flickr.user.token }}');
+define('FLICKR_AUTH_SECRET', '{{ ukm.apis.flickr.user.secret }}');
 
 # DROPBOX
-define('DROPBOX_APP_NAME', '{{ apis.dropbox.app.name }}');
-define('DROPBOX_APP_ID', '{{ apis.dropbox.app.id }}');
-define('DROPBOX_APP_SECRET', '{{ apis.dropbox.app.secret }}');
-define('DROPBOX_ENDPOINT', '{{ apis.dropbox.app.endpoint }}');
-define('DROPBOX_AUTH_ACCESS_TOKEN', '{{ apis.dropbox.user.token }}');
+define('DROPBOX_APP_NAME', '{{ ukm.apis.dropbox.app.name }}');
+define('DROPBOX_APP_ID', '{{ ukm.apis.dropbox.app.id }}');
+define('DROPBOX_APP_SECRET', '{{ ukm.apis.dropbox.app.secret }}');
+define('DROPBOX_ENDPOINT', '{{ ukm.apis.dropbox.app.endpoint }}');
+define('DROPBOX_AUTH_ACCESS_TOKEN', '{{ ukm.apis.dropbox.user.token }}');
 
 // CLOUDFLARE
-define('UKM_CLOUDFLARE_AUTH_KEY', '{{ apis.cloudflare.auth_key }}');
-define('UKM_CLOUDFLARE_EMAIL', '{{ apis.cloudflare.email }}');
-define('UKM_CLOUDFLARE_UKMNO_ZONE', '{{ apis.cloudflare.zone }}');
-define('UKM_CLOUDFLARE_URL', '{{ apis.cloudflare.url }}');
+define('UKM_CLOUDFLARE_AUTH_KEY', '{{ ukm.apis.cloudflare.auth_key }}');
+define('UKM_CLOUDFLARE_EMAIL', '{{ ukm.apis.cloudflare.email }}');
+define('UKM_CLOUDFLARE_UKMNO_ZONE', '{{ ukm.apis.cloudflare.zone }}');
+define('UKM_CLOUDFLARE_URL', '{{ ukm.apis.cloudflare.url }}');
 
 // INSTRATO
 define('UKM_INSTRATO_PEPPER', '@90#%');
 define('UKM_INSTRATO_SALT', 'UKMhash');
 
 # SLACK
-define('SLACK_CLIENT_ID', '{{ apis.slack.client.id }}');
-define('SLACK_CLIENT_SECRET', '{{ apis.slack.client.secret }}');
-define('SLACK_SIGNING_SECRET', '{{ apis.slack.client.signing_secret }}');
-define('SLACK_SHAREABLE_URL', '{{ apis.slack.client.shareable_url }}');
-define('SLACK_UKMNORGE_TEAM_ID', '{{ apis.slack.teams.ukmnorge }}');
-define('SLACK_UKMMEDIA_TEAM_ID', '{{ apis.slack.teams.ukmmedia }}');
+define('SLACK_CLIENT_ID', '{{ ukm.apis.slack.client.id }}');
+define('SLACK_CLIENT_SECRET', '{{ ukm.apis.slack.client.secret }}');
+define('SLACK_SIGNING_SECRET', '{{ ukm.apis.slack.client.signing_secret }}');
+define('SLACK_SHAREABLE_URL', '{{ ukm.apis.slack.client.shareable_url }}');
+define('SLACK_UKMNORGE_TEAM_ID', '{{ ukm.apis.slack.teams.ukmnorge }}');
+define('SLACK_UKMMEDIA_TEAM_ID', '{{ ukm.apis.slack.teams.ukmmedia }}');
 
 ## FILER
 # BILDER

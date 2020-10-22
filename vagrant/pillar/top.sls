@@ -11,12 +11,11 @@ base:
 
     'roles:lite':
         - match: grain
-        - ukmlib
+        - ukm
 
     'roles:main':
         - match: grain
-        - ukmlib
-        - ukmno
+        - ukm
 
     'vagrant':
         - samba
