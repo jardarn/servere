@@ -1,11 +1,26 @@
-box-web-www-folder:
+box-lite-www-folder:
     file.directory:
         - name: /var/www/lite/
 
-box-web-vhost:
+box-lite-vhost:
+    file.managed:
+        - name: /etc/apache2/sites-enabled/lite.ukm.dev.conf
+        - source: salt://apache/files/vhost.conf
+        - template: jinja
+        - defaults:
+            hostname: lite.ukm.dev
+            document_root: lite/
+        - require:
+            - pkg: apache
+            - ssl-key-ukm-dev
+            - box-lite-www-folder
+        - watch_in:
+            - service: apache
+
+box_tempdev_vhost:
     file.managed:
         - name: /etc/apache2/sites-enabled/ukm.dev.conf
-        - source: salt://apache/vhost.conf
+        - source: salt://apache/files/vhost.conf
         - template: jinja
         - defaults:
             hostname: ukm.dev
@@ -13,17 +28,10 @@ box-web-vhost:
         - require:
             - pkg: apache
             - ssl-key-ukm-dev
-            - box-web-www-folder
         - watch_in:
             - service: apache
 
-# SKAL UT SNART!
-# Må bare fikse path for grafikk.ukm.no (vhost 🤦🏼‍♂️)
 ukmdesign_git:
     git.latest:
         - name: https://github.com/UKMNorge/UKMDesign.git
         - target: /var/www/wordpress/wp-content/themes/UKMDesign
-
-
-include:
-    - ukmboxes.subdomains

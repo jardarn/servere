@@ -1,3 +1,5 @@
+require 'fileutils'
+
 ## REQUIRE VAGRANT PLUGINS
 doAbort = false
 plugins = ['vagrant-hostmanager','vagrant-disksize']
@@ -16,17 +18,26 @@ end
 
 ## REQUIRE DATA PACKAGE FILES IF BRINGING UP OR PROVISIONING VM
 if ARGV.include?("up") || (ARGV.include?("reload") && ARGV.include?("--provision"))
-    dataPackageMissing = []
+    $dataPackageMissing = []
 
-    ['ukmdev_dev_ss3.sql','ukmdev_dev_wp.sql','uploads.tar.gz'].each do |file|
-        if( !File.exist?("salt/ukmlib/datapackage/#{file}" )) 
-            dataPackageMissing << file
-        end
+    caFile = File.expand_path("../datapackage/UKMNorgeCA.pem" )
+    if( !File.exist?(caFile)) 
+        $dataPackageMissing << File.basename( caFile )
     end
-    if( dataPackageMissing.length() > 0 )
-        puts "Missing required data package file(s):".red
-        dataPackageMissing.each do |file|
-            puts "  ./salt/ukmlib/datapackage/#{file}"
+    
+    # UKMlib database files
+    requireDataPackageFiles('../datapackage/', 'salt/ukmlib/files/', ['ukmdev_dev_ss3.sql','ukmdev_dev_wp.sql'])
+
+    # UKMbox-main wordpress
+    requireDataPackageFiles('../datapackage/', 'salt/ukmbox-main/files/', ['uploads.tar.gz'])
+    
+    # SSL init.sls (certificates)
+    requireDataPackageFiles('../datapackage/', 'pillar/ssl/', ['init.sls'])
+
+    if( $dataPackageMissing.length() > 0 )
+        puts "Missing required file(s) in #{$localNFSpath}datapackage/:".red
+        $dataPackageMissing.each do |file|
+            puts "  - #{file}"
         end
         puts "See README.md for how to request development data package from UKM Norge."
         puts "$ open README.md".yellow
@@ -37,5 +48,5 @@ end
 
 if ARGV.include?("up") || (ARGV.include?("reload") && ARGV.include?("--provision"))
     puts "In case you've forgotten, remember to approve the UKM Norge (UKM.dev) certificate authority (CA):".blue
-    puts " $ open #{Dir.pwd()}/salt/ukmlib/datapackage/UKMNorgeCA.pem"
+    puts " $ open "+ File.expand_path("#{Dir.pwd()}/../datapackage/UKMNorgeCA.pem")
 end

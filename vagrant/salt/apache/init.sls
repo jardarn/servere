@@ -56,11 +56,7 @@ phpgd:
         - name: php7.2-gd
         - require:
             - pkg: mod-php
-php-imagick:
-    pkg.installed:
-        - name: php-imagick
-        - require:
-            - pkg: mod-php
+
 phpzip:
     pkg.installed:
         - name: php7.2-zip
@@ -70,7 +66,7 @@ phpzip:
 phpini:
     file.managed:
         - name: /etc/php/7.2/apache2/php.ini
-        - source: salt://apache/php.ini
+        - source: salt://apache/files/php.ini
         - template: jinja
         - require:
             - pkg: mod-php
@@ -82,7 +78,7 @@ phpini:
 phpini-cli:
     file.managed:
         - name: /etc/php/7.2/cli/php.ini
-        - source: salt://apache/php.ini
+        - source: salt://apache/files/php.ini
         - template: jinja
         - require:
             - pkg: mod-php

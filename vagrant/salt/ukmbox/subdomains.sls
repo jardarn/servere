@@ -24,6 +24,14 @@ ukm-subdomain-{{subdomain}}-composer:
             - composer
 {% endif %}
 
+{% if conf.parameters is defined and conf.parameters %}
+ukm-subdomain-{{subdomain}}-parameters:
+    file.managed:
+        - name: {{ conf.parameters.target }}
+        - source: {{ conf.parameters.source }}
+        - template: jinja
+{% endif %}
+
 ukm-subdomain-{{subdomain}}-vhost:
     file.managed:
         - name: /etc/apache2/sites-enabled/api.conf

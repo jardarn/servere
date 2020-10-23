@@ -3,13 +3,14 @@
 *.log
 .DS_STORE
 
-vagrant/salt/*/datapackage
-!vagrant/salt/*/datapackage/.gitkeep
+datapackage/*
+!datapackage/.gitkeep
 
 vagrant/pillar/ssl/init.sls
 
 # Folder struct for NFS sharing
-server_data/*
-!server_data/*.gitkeep
 shared/*
 !shared/*.gitkeep
+vagrant/salt/ukmbox-main/files/uploads.tar.gz
+vagrant/salt/ukmlib/files/ukmdev_dev_ss3.sql
+vagrant/salt/ukmlib/files/ukmdev_dev_wp.sql

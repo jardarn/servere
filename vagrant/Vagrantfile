@@ -15,9 +15,9 @@ $localNFSpath = "#{Dir.pwd}/"
 $boxNames = []
 
 # Files we kinda need
+require './filesystem'      # File system functions
 require './dependencies'    # Vagrant plugin dependencies
 require './boxconfig'       # Different vagrant-box configs
-require './filesystem'      # File system functions
 require './utils'           # VM conf utilities
 
 # Configure vagrant!
@@ -36,27 +36,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.include_offline = true   # So every box knows each other, even if currently offline
 
     config.vm.provider :virtualbox do |vb|
-        vb.customize ["modifyvm", :id, "--memory", $boxConf['web'][:memory]]
+        vb.customize ["modifyvm", :id, "--memory", $boxConf['main'][:memory]]
     end
 
-    ## WEB MAIN SERVER (UKM.no)
-    config.vm.define "web", primary: true do |web|
-        commonConf('web', web)
+    ## main MAIN SERVER (UKM.no)
+    config.vm.define "main", primary: true do |main|
+        commonConf('main', main)
 
         # Share wordpress folders
-        share(web, 'web/plugins', '/var/www/wordpress/wp-content/plugins/')
-        share(web, 'web/themes', '/var/www/wordpress/wp-content/themes/')
-        share(web, 'web/ukmlib', '/etc/php-includes/UKM/')
+        share(main, 'main/plugins', '/var/www/wordpress/wp-content/plugins/')
+        share(main, 'main/themes', '/var/www/wordpress/wp-content/themes/')
+        share(main, 'main/ukmlib', '/etc/php-includes/UKM/')
+        shareSubdomains('main', main, config);
         
         # Hostname conf
-        web.vm.hostname = "ukm.dev"
+        main.vm.hostname = "ukm.dev"
         hostname_aliases = Array.new
         
         # Provision (salt-stack)
-        doProvision('web',web)
+        doProvision('main',main)
     end
 
-    ## LITE WEB SERVER (for project fun)
+    ## LITE main SERVER (for project fun)
     config.vm.define "lite" do |lite|
         commonConf('lite', lite)
 
@@ -64,6 +65,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         hostname_aliases << 'ukm.dev'
 
         # Share before provision, in case host has existing files
+        shareSubdomains('lite', lite, config);
         share(lite, 'lite/www', '/var/www/lite/')        
         share(lite, 'lite/ukmlib', '/etc/php-includes/UKM/')
         
@@ -72,7 +74,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         lite.hostmanager.aliases = hostname_aliases
     end
-    
-
 end
-  

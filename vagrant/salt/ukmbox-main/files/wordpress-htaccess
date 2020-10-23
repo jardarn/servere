@@ -1,0 +1,48 @@
+{% set ukm = pillar.get('ukm') -%}
+
+RewriteOptions inherit
+RewriteEngine On
+RewriteBase /
+
+RewriteOptions inherit
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^derdubor/?$ "https\:\/\/{{ ukm.hostname|replace('.','\.') }}\/din_monstring/" [R=302,L]
+RewriteCond %{HTTP_HOST} ^{{ ukm.hostname|replace('.','\.') }}$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.{{ ukm.hostname|replace('.','\.') }}$
+RewriteRule ^ukm\-festivalen\/?$ "http\:\/\/{{ ukm.hostname|replace('.','\.') }}\/festivalen\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^{{ ukm.hostname|replace('.','\.') }}$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.{{ ukm.hostname|replace('.','\.') }}$
+RewriteRule ^ukm\-festivalen-2014\/?$ "http\:\/\/{{ ukm.hostname|replace('.','\.') }}\/festivalen\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^{{ ukm.hostname|replace('.','\.') }}$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.{{ ukm.hostname|replace('.','\.') }}$
+RewriteRule ^lokal/?$ "http\:\/\/{{ ukm.hostname|replace('.','\.') }}\/din_monstring\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^{{ ukm.hostname|replace('.','\.') }}$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.{{ ukm.hostname|replace('.','\.') }}$
+RewriteRule ^festival$ "http\:\/\/{{ ukm.hostname|replace('.','\.') }}\/festivalen\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^{{ ukm.hostname|replace('.','\.') }}$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.{{ ukm.hostname|replace('.','\.') }}$
+RewriteRule ^mr$ "http\:\/\/{{ ukm.hostname|replace('.','\.') }}\/moreogromsdal\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^{{ ukm.hostname|replace('.','\.') }}$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.{{ ukm.hostname|replace('.','\.') }}$
+RewriteRule ^din_side$ "http\:\/\/delta\.{{ ukm.hostname|replace('.','\.') }}" [R=301,L]
+
+# BEGIN WordPress
+RewriteRule ^index\.php$ - [L]
+
+# uploaded files
+RewriteRule ^([_0-9a-zA-Z-]+/)?files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(wp-(content|admin|includes).*) $1 [L]
+RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
+RewriteRule . index.php [L]
+# END WordPress

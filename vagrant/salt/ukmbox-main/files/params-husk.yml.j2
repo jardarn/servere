@@ -1,0 +1,18 @@
+{% set husk = pillar.get('husk', {}) %}
+{% set ukm = pillar.get('ukm', {}) %}
+
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: {{ husk.database }}
+    database_user: {{ husk.username }}
+    database_password: '{{ husk.password }}'
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: '{{ husk.secret }}'
+    ukmapi.api_key: 'husk'
+    ukmapi.api_secret: 
+    ukm_hostname: {{ ukm.hostname }}

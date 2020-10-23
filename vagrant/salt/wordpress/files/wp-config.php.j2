@@ -1,0 +1,100 @@
+{% set wordpress = pillar.get('wordpress', {}) %}
+<?php
+/**
+ * Grunnkonfigurasjonen til WordPress.
+ *
+ * Denne filen inneholder følgende konfigurasjoner: MySQL-innstillinger, tabellprefiks,
+ * hemmelige nøkler, WordPress-språk og ABSPATH. Du kan finne mer informasjon
+ * ved å besøke {@link http://codex.wordpress.org/Editing_wp-config.php Editing
+ * wp-config.php} Codex-siden. Du kan få MySQL-innstillingene fra din nettjener.
+ *
+ * Denne filen brukes av koden som lager wp-config.php i løpet av
+ * installasjonen. Du trenger ikke å bruke nettstedet til å gjøre det, du trenger bare
+ * å kopiere denne filen til "wp-config.php" og fylle inn verdiene.
+ *
+ * @package WordPress
+ */
+
+define( 'SUNRISE', 'on' );
+// ** MySQL-innstillinger - Dette får du fra din nettjener ** //
+/** Navnet på WordPress-databasen */
+define('DB_NAME', '{{ database_name if database_name is defined else wordpress.database.name }}');
+
+/** MySQL-databasens brukernavn */
+define('DB_USER', '{{ database_user if database_user is defined else wordpress.database.user }}');
+
+/** MySQL-databasens passord */
+define('DB_PASSWORD', '{{ database_pass if database_pass is defined else wordpress.database.pass }}');
+
+/** MySQL-tjener */
+define('DB_HOST', '{{ database_host if database_host is defined else wordpress.database.host }}');
+
+/** Tegnsettet som skal brukes i databasen for å lage tabeller. */
+define('DB_CHARSET', '{{ database_charset if database_charset is defined else wordpress.database.charset }}');
+
+/** Databasens "Collate"-type. La denne være hvis du er i tvil. */
+define('DB_COLLATE', '{{ database_collate if database_collate is defined else wordpress.database.collate }}');
+
+/**#@+
+ * Autentiseringsnøkler og salter.
+ *
+ * Endre disse til unike nøkler!
+ * Du kan generere nøkler med {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * Du kan når som helst endre disse nøklene for å gjøre aktive cookies ugyldige. Dette vil tvinge alle brukere å logge inn igjen.
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         '{{ wordpress.auth_key }}');
+define('SECURE_AUTH_KEY',  '{{ wordpress.secure_auth_key }}');
+define('LOGGED_IN_KEY',    '{{ wordpress.logged_in_key }}');
+define('NONCE_KEY',        '{{ wordpress.nonce_key }}');
+define('AUTH_SALT',        '{{ wordpress.auth_salt }}');
+define('SECURE_AUTH_SALT', '{{ wordpress.secure_auth_salt }}');
+define('LOGGED_IN_SALT',   '{{ wordpress.logged_in_salt }}');
+define('NONCE_SALT',       '{{ wordpress.nonce_salt }}');
+
+/**#@-*/
+
+/**
+ * WordPress-databasens tabellprefiks.
+ *
+ * Du kan ha flere installasjoner i en databasehvis du gir dem hver deres unike
+ * prefiks. Kun tall, bokstaver og understrek (_), takk!
+ */
+$table_prefix  = '{{ database_table_prefix if database_table_prefix is defined else wordpress.database.prefix }}';
+
+/**
+ * WordPress-språk, forhåndsinnstilt til norsk (bokmål).
+ *
+ * Du kan endre denne linjen for å bruke WordPress på et annet språk. En tilsvarende MO-fil for
+ * det valgte språket må installeres i wp-content/languages. For eksempel, installer
+ * de.mo i wp-content/languages og sett WPLANG til 'de' for å aktivere språkstøtte
+ * på tysk.
+ */
+define('WPLANG', '{{ wordpress.language if wordpress.language is defined else 'en_US' }}');
+
+/**
+ * For utviklere: WordPress-feilsøkingstilstand.
+ *
+ * Sett denne til "true" for å aktivere visning av meldinger under utvikling.
+ * Det er sterkt anbefalt at innstikks- og tema-utviklere bruker WP_DEBUG
+ * i deres utviklermiljøer.
+ */
+define('FS_METHOD','{{ wordpress.fs_method }}');
+define('WP_DEBUG', {{ wordpress.debug }});
+define('WP_ALLOW_MULTISITE', {{ wordpress.multisite }});
+define('MULTISITE', {{ wordpress.multisite }});
+define('SUBDOMAIN_INSTALL', {{ wordpress.subdomain_install }});
+define('DOMAIN_CURRENT_SITE', '{{ current_site_domain if current_site_domain is defined else wordpress.current_site.domain }}');
+define('PATH_CURRENT_SITE', '{{ current_site_path if current_site_path is defined else wordpress.current_site.path }}');
+define('SITE_ID_CURRENT_SITE', {{ current_site_id if current_site_id is defined else wordpress.current_site.site_id }});
+define('BLOG_ID_CURRENT_SITE', {{ current_site_blog_id if current_site_blog_id is defined else wordpress.current_site.blog_id }});
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+    define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');

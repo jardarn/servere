@@ -1,0 +1,42 @@
+ukmwordpress:
+    parked_domains:
+        - org
+        - personvern
+        - arrangor
+        - media
+        - meta
+        - redaksjonelt
+        - festivalen
+    plugins:
+        - UKMbilder
+        - UKMcache
+        - UKMdeltakere
+        - UKMdocs
+        - UKMfestivalen
+        - UKMidebank
+        - UKMkalender
+        - UKMkonkurranse
+        - UKMlog
+        - UKMmonstring
+        - UKMnettside
+        - UKMnettverket
+        - UKMplayback
+        - UKMpr
+        - UKMprogram
+        - UKMpush_to_front
+        - UKMrapporter
+        - UKMresources
+        - UKMRFIDwp
+        - UKMsamtykke
+        - UKMsms
+        - UKMstimuleringsmidler
+        - UKMsystem_tools
+        - UKMTVwp
+        - UKMusers
+        - UKMvideo
+        - UKMvideresending
+        - UKMwp_admin-tweaks
+        - UKMwp_dashboard
+        - UKMwp_innhold
+        - UKMwp_repost
+        - UKMwp_slack

@@ -16,6 +16,8 @@ base:
     'roles:main':
         - match: grain
         - ukm
+        - wordpress
+        - ukmtv
 
     'vagrant':
         - samba

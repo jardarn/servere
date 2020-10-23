@@ -3,5 +3,7 @@ file_client: local
 grains:
     hostname: ukm.dev
     roles:
+        - database
         - phpweb
-        - web
+        - ukmbox
+        - main

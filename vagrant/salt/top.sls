@@ -5,25 +5,33 @@ base:
         - ssl
         - vim
         - swap
-        - ukmboxes
 
     'vagrant':
         - samba
 
-    'phpweb':
+    'roles:phpweb':
+        - match: grain
+        - apache
         - composer
+    
+    'roles:database':
+        - match: grain
         - mysql
+
+    'roles:ukmbox':
+        - match: grain
+        - ukmbox
 
     'roles:lite':
         - match: grain
-        - mysql
         - ukmlib
+        - ukmbox-lite
 
     'roles:main':
         - match: grain
-        - mysql
         - ukmlib
-        - ukmno
+        - wordpress
+        - ukmbox-main
    
     'roles:videoconverter':
         - match: grain

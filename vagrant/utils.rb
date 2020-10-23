@@ -6,6 +6,13 @@ def commonConf(boxName, box)
     box.vm.hostname = $boxConf[boxName][:hostname]
 end
 
+def shareSubdomains(boxName, box, config)
+    pillarSubdomainConfig = YAML.load_file('./pillar/ukm/subdomains/'+ boxName +'.sls')
+    pillarSubdomainConfig['subdomains'].each do |subdomain, domainData|
+        share(box, boxName+'/'+domainData['subdomain'], '/var/www/'+domainData['subdomain']+'/')
+    end
+end
+
 # Actually run salt-provisioning
 def doProvision(boxName, box)
     box.vm.provision :salt do |salt|

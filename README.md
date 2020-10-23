@@ -10,13 +10,12 @@ Installasjon
 2. Installer [vagrant](http://www.vagrantup.com/)
 3. Etterspør [datafiler for utviklermiljø](mailto:support@ukm.no?subject=UKMdev_datafiler)
 4. Klon dette repoet til din maskin
-5. Pakk ut datafilene *(se pkt 3)* i repoet, under `salt/ukmlib/datapackage/`
-6. Flytt `salt/ukmlib/datapackage/init.sls` til `pillar/ssl/init.sls`
-6. Legg til SSL-sertifikatet `salt/ukmlib/datapackage/UKMNorgeCA.pem` i din keychain / nettleser
+5. Pakk ut datafilene *(fra pkt 3)* `./datapackage/` i repoet.
+6. Legg til SSL-sertifikatet `./datapackage/UKMNorgeCA.pem` i din keychain / nettleser
 7. Når du starter en VM, vil vagrant sjekke at du har riktige vagrant-plugins installert, og eventuelt fortelle deg hvordan du installerer disse.
 
 ### Starte opp en VM
-Vi anbefaler å starte opp en spesifikk VM, hvor `<role>` er være en av de [ulike VM'ene](#de-ulike-vmene) (`lite`, ~~`web`~~, ~~`playback`~~, ~~`videoconverter`~~, ~~`videostorage`~~ eller ~~`videocache`~~). Dette gjør du med:
+Vi anbefaler å starte opp en spesifikk VM, hvor `<role>` er være en av de [ulike VM'ene](#de-ulike-vmene) (`lite`, `main`, ~~`playback`~~, ~~`videoconverter`~~, ~~`videostorage`~~ eller ~~`videocache`~~). Dette gjør du med:
 
 `$ vagrant up <role> `
 
@@ -34,7 +33,7 @@ Din lokale hosts-fil blir automatisk oppdatert av [vagrant-hostmanager](https://
 Siden vi kjører utvikling på en virtuell server, kreves det nå kryptert forbindelse mellom den lokale maskinen og den virtuelle serveren. Ingen av sertifikatene eller private keyene du får tilgang til skal brukes andre steder enn i utviklingsmiljøene.
 
 ### Database-tilgang
-Etter du har kjørt `vagrant up lite` eller `vagrant up web`, har du tilgang på dev-databasen, f.eks med [Sequel pro](https://sequelpro.com/download). OBS: to VM'ene kjører hver sin utgave av databasen.
+Etter du har kjørt `vagrant up lite` eller `vagrant up `, har du tilgang på dev-databasen, f.eks med [Sequel pro](https://sequelpro.com/download). OBS: to VM'ene kjører hver sin utgave av databasen.
 
 Bruk SSH for å koble til (bytt ut `<repo>` med den faktiske filbanen til repoet på din maskin).
 
@@ -45,12 +44,12 @@ SSH:
     User: vagrant
     Key: <repo>/.vagrant/machines/lite/virtualbox/private_key
 ```
-**Web-maskinen**
+**Main-maskinen**
 ```yaml
 SSH:
     Host: ukm.dev
     User: vagrant
-    Key: <repo>/.vagrant/machines/web/virtualbox/private_key
+    Key: <repo>/.vagrant/machines/main/virtualbox/private_key
 ```
 **Felles MySQL-settings for begge maskinene**
 ```yaml
@@ -68,12 +67,13 @@ MySQL:
 Hvis du hele tiden må skrive inn host-passordet i OS X for å sette opp networking ifbm. NFS og shared folders kan du gjøre det følgende for å fikse på det:
 
 - `sudo visudo` - Bla deg til enden av filen, trykk `i` for å gå i Insert Mode.
-- Lim inn følgende: 
+- Lim inn følgende (OBS: erstatt `~` med faktisk path): 
 ```
-        Cmnd_Alias VAGRANT_EXPORTS_ADD = /usr/bin/tee -a /etc/exports
-        Cmnd_Alias VAGRANT_NFSD = /sbin/nfsd restart
-        Cmnd_Alias VAGRANT_EXPORTS_REMOVE = /usr/bin/sed -E -e /*/ d -ibak /etc/exports
-        %admin ALL=(root) NOPASSWD: VAGRANT_EXPORTS_ADD, VAGRANT_NFSD, VAGRANT_EXPORTS_REMOVE
+    Cmnd_Alias VAGRANT_EXPORTS_ADD = /usr/bin/tee -a /etc/exports
+    Cmnd_Alias VAGRANT_NFSD = /sbin/nfsd restart
+    Cmnd_Alias VAGRANT_EXPORTS_REMOVE = /usr/bin/sed -E -e /*/ d -ibak /etc/exports
+    Cmnd_Alias VAGRANT_HOSTMANAGER_UPDATE = /bin/cp ~/.vagrant.d/tmp/hosts.local /etc/hosts
+    %admin ALL=(root) NOPASSWD: VAGRANT_EXPORTS_ADD, VAGRANT_NFSD, VAGRANT_EXPORTS_REMOVE, VAGRANT_HOSTMANAGER_UPDATE
 ```
 - Trykk `ESC` for å gå ut av Insert Mode
 - Trykk `:w` for å lagre.
@@ -98,5 +98,5 @@ For å aksessere [UKMlib](https://github.com/UKMNorge/UKMAPI) i koden din, treng
 require_once('UKM/Autoloader.php');
 ```
 
-## Web
-"Web-serveren vår". Her kjører vi wordpress (https://ukm.dev), og de fleste subdomenene på *.ukm.dev. Gir deg full tilgang til arrangørsystem, påmeldingssystem, nettsider osv. (og fungerer ikke atm 😬)
+## Main
+"Hoved-serveren vår". Her kjører vi wordpress (https://ukm.dev), og de fleste subdomenene på *.ukm.dev. Gir deg full tilgang til arrangørsystem, påmeldingssystem, nettsider osv. (og fungerer ikke atm 😬)
