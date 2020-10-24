@@ -5,12 +5,16 @@
 			"name": "Vagrant"
 		},
 		{
-			"path": "./server_data/lite/",
+			"path": "./shared/lite/",
 			"name": "VM: lite"
 		},
 		{
-			"path": "./server_data/web/",
+			"path": "./shared/web/",
 			"name": "VM: web"
+		},
+		{
+			"path": "./shared/playback/www/_playbackserver",
+			"name": "VM: playback"
 		},
 	],
 	"settings": {

@@ -7,6 +7,7 @@ subdomains:
         subdomain: delta
         github: https://github.com/UKMNorge/UKMDelta.git
         composer: true
+        document_root: /var/www/delta/web/
         parameters: 
             target: /var/www/delta/app/config/parameters.yml
             source: salt://ukmbox-main/files/params-delta.yml.j2
@@ -18,6 +19,7 @@ subdomains:
         subdomain: husk
         github: https://github.com/UKMNorge/UKMhusk.git
         composer: true
+        document_root: /var/www/husk/web/
         parameters:
             target: /var/www/husk/app/config/parameters.yml
             source: salt://ukmbox-main/files/params-husk.yml.j2
@@ -25,6 +27,7 @@ subdomains:
         subdomain: pressemelding
         github: https://github.com/UKMNorge/UKMpressemelding.git
         composer: true
+        document_root: /var/www/pressemelding/web/
         parameters:
             target: /var/www/pressemelding/app/config/parameters.yml
             source: salt://ukmbox-main/files/params-pressemelding.yml.j2
@@ -40,9 +43,7 @@ subdomains:
         subdomain: tv
         github: https://github.com/UKMNorge/UKMTV.git
         composer: true
-        parameters:
-            target: /var/www/tv/app/config/parameters.yml
-            source: salt://ukmbox-main/files/params-tv.yml.j2
+        document_root: /var/www/tv/public/
     embed:
         subdomain: embed
         github: https://github.com/UKMNorge/UKMTV-Embed

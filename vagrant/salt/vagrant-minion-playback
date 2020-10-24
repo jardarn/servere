@@ -1,0 +1,8 @@
+id: vagrant
+file_client: local
+grains:
+    hostname: playback.ukm.dev
+    roles:
+        - phpweb
+        - ukmbox
+        - playback

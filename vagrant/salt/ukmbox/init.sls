@@ -1,2 +1,2 @@
-#include:
-#    - ukmbox.subdomains
+include:
+    - ukmbox.subdomains

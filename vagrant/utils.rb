@@ -6,11 +6,19 @@ def commonConf(boxName, box)
     box.vm.hostname = $boxConf[boxName][:hostname]
 end
 
-def shareSubdomains(boxName, box, config)
-    pillarSubdomainConfig = YAML.load_file('./pillar/ukm/subdomains/'+ boxName +'.sls')
-    pillarSubdomainConfig['subdomains'].each do |subdomain, domainData|
-        share(box, boxName+'/'+domainData['subdomain'], '/var/www/'+domainData['subdomain']+'/')
+def shareAndConfigureSubdomains(boxName, box, config)
+    hostname_aliases = Array.new
+
+    pillarFile = './pillar/ukm/subdomains/'+ boxName +'.sls'
+    if File.exist?(File.expand_path(pillarFile))
+        pillarSubdomainConfig = YAML.load_file(pillarFile)
+
+        pillarSubdomainConfig['subdomains'].each do |subdomain, domainData|
+            share(box, boxName+'/'+domainData['subdomain'], '/var/www/'+domainData['subdomain']+'/')
+            hostname_aliases << domainData['subdomain']+".ukm.dev"
+        end
     end
+    box.hostmanager.aliases = hostname_aliases
 end
 
 # Actually run salt-provisioning

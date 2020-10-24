@@ -3,7 +3,7 @@ base:
         - java
         - mysql
         - ssl
-        - videoconverter
+        - ukmtv
 
     'phpweb':
         - php
@@ -18,6 +18,10 @@ base:
         - ukm
         - wordpress
         - ukmtv
+    
+    'roles:playback':
+        - match: grain
+        - ukm
 
     'vagrant':
         - samba

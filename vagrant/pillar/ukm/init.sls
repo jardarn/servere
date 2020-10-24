@@ -1,10 +1,11 @@
 {% if 'lite' in grains['roles'] %}
 include:
-    - subdomains.lite
+    - ukm.subdomains.lite
 {% elif 'main' in grains['roles'] %}
 include:
     - ukm.subdomains.main
     - ukm.wordpress
+    - ukm.husk
 {% endif %}
 
 ukm:

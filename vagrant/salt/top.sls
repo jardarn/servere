@@ -32,6 +32,10 @@ base:
         - ukmlib
         - wordpress
         - ukmbox-main
+    
+    'roles:playback':
+        - match: grain
+        - ukmbox-playback
    
     'roles:videoconverter':
         - match: grain
@@ -45,7 +49,3 @@ base:
     'roles:videocache':
         - match: grain
         - wowza
-    
-    'roles:playback':
-        - match: grain
-        - ukmplayback

@@ -1,46 +1,56 @@
 {% set subdomains = pillar.get('subdomains', {}) %}
 
-{% for subdomain, conf in subdomains %}
+{% for subdomain in subdomains %}
+{% set config = subdomains[subdomain] %}
 ukm-subdomain-{{subdomain}}:
     file.directory:
          - name: /var/www/{{subdomain}}/
 
-{% if conf.github is defined and conf.github %}
+{% if config.github is defined and config.github %}
 ukm-subdomain-{{subdomain}}-git:
     git.latest:
-        - name: {{conf.github}}
+        - name: {{config.github}}
         - target: /var/www/{{subdomain}}
         - require:
             - pkg: ukmlib
+            - ukm-subdomain-{{subdomain}}
 {% endif %}
 
-{% if conf.composer is defined and conf.composer %}
+{% if config.parameters is defined and config.parameters %}
+ukm-subdomain-{{subdomain}}-parameters:
+    file.managed:
+        - name: {{ config.parameters.target }}
+        - source: {{ config.parameters.source }}
+        - mode: 640
+        - user: root
+        - group: www-data
+        - template: jinja
+        - require:
+            - ukm-subdomain-{{subdomain}}-git
+{% endif %}
+
+{% if config.composer is defined and config.composer %}
 ukm-subdomain-{{subdomain}}-composer:
     cmd.run:
         - name: composer install
         - cwd: /var/www/{{subdomain}}
         - require:
-            - ukm-subdomain-{{subdomain}}
+            - ukm-subdomain-{{subdomain}}-git
             - composer
-{% endif %}
-
-{% if conf.parameters is defined and conf.parameters %}
-ukm-subdomain-{{subdomain}}-parameters:
-    file.managed:
-        - name: {{ conf.parameters.target }}
-        - source: {{ conf.parameters.source }}
-        - template: jinja
+            {% if config.parameters is defined and config.parameters %}- ukm-subdomain-{{subdomain}}-parameters{% endif %}
 {% endif %}
 
 ukm-subdomain-{{subdomain}}-vhost:
     file.managed:
-        - name: /etc/apache2/sites-enabled/api.conf
-        - source: salt://ukmno/files/vhost-subdomain.conf
+        - name: /etc/apache2/sites-enabled/{{subdomain}}.conf
+        - source: salt://apache/files/vhost-subdomain.conf
         - template: jinja
         - defaults:
-          subdomain: api
+          subdomain: {{subdomain}}
+          {% if config.document_root is defined %}document_root: {{config.document_root}}{% endif %}
         - watch_in:
             - service: apache
         - require:
             - ssl-key-ukm-dev
+            - ukm-subdomain-{{subdomain}}{% if config.github is defined and config.github %}-git{% endif %}
 {% endfor %}
