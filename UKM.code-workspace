@@ -9,8 +9,8 @@
 			"name": "VM: lite"
 		},
 		{
-			"path": "./shared/web/",
-			"name": "VM: web"
+			"path": "./shared/main/",
+			"name": "VM: main"
 		},
 		{
 			"path": "./shared/playback/www/_playbackserver",
