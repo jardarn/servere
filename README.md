@@ -84,6 +84,13 @@ Hvis du hele tiden må skrive inn host-passordet i OS X for å sette opp network
 Prøv 
 `$ vagrant plugin install vagrant-vbguest` ([takk til Shamli Singh](https://medium.com/@botdotcom/installing-virtualbox-and-vagrant-on-windows-10-2e5cbc6bd6ad))
 
+## Windows: NFS is not supported
+Requirements: 
+- Windows 10 Pro
+- Vagrant <2.2.10 (testet OK med 2.2.5)
+- Testet OK med VirtualBox 6.0, Guest Additions 6.0.6.
+
+Se også https://github.com/hashicorp/vagrant/issues/12059
 
 De ulike VM'ene
 ===
