@@ -4,6 +4,8 @@
         "phpoffice/phpspreadsheet": "^1.4",
         "mariusmandal/wpoo": "^1.0",
         "mariusmandal/ics-gen": "dev-master",
-        "kunalvarma05/dropbox-php-sdk": "^0.2.1"
+        "kunalvarma05/dropbox-php-sdk": "^0.2.1",
+        "phpmailer/phpmailer": "^6.0",
+        "misd/linkify": "^1.1"
     }
 }
