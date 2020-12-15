@@ -1,4 +1,8 @@
 subdomains:
+    id:
+        subdomain: id
+        github: https://github.com/UKMNorge/ID.git
+        composer: false
     api:
         subdomain: api
         github: https://github.com/UKMNorge/UKMapi_public.git
