@@ -40,6 +40,17 @@ ukm-subdomain-{{subdomain}}-composer:
             {% if config.parameters is defined and config.parameters %}- ukm-subdomain-{{subdomain}}-parameters{% endif %}
 {% endif %}
 
+{% if config.composer1 is defined and config.composer1 %}
+ukm-subdomain-{{subdomain}}-composer1:
+    cmd.run:
+        - name: composer1 install --no-plugins
+        - cwd: /var/www/{{subdomain}}
+        - require:
+            - ukm-subdomain-{{subdomain}}-git
+            - composer1
+            {% if config.parameters is defined and config.parameters %}- ukm-subdomain-{{subdomain}}-parameters{% endif %}
+{% endif %}
+
 ukm-subdomain-{{subdomain}}-vhost:
     file.managed:
         - name: /etc/apache2/sites-enabled/{{subdomain}}.conf

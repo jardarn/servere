@@ -46,7 +46,7 @@ subdomains:
     tv:
         subdomain: tv
         github: https://github.com/UKMNorge/UKMTV.git
-        composer: true
+        composer1: true
         document_root: /var/www/tv/public/
     embed:
         subdomain: embed
