@@ -81,4 +81,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         shareAndConfigureSubdomains('playback', playback, config)
         doProvision('playback', playback)
     end
+
+    config.vm.define "videoconverter" do |videoconverter|
+        commonConf('videoconverter', videoconverter)
+        #share(videoconverter, 'videoconverter', '/var/www/videoconverter')
+        shareAndConfigureSubdomains('videoconverter', videoconverter, config)
+        doProvision('videoconverter', videoconverter)
+    end
 end
