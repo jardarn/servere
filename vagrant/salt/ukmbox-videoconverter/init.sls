@@ -1,6 +1,6 @@
 include: 
     - videoconverter
-    
+
 box-videoconverter-www-folder:
     file.directory:
         - name: /var/www/videoconverter

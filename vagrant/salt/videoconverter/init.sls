@@ -70,7 +70,6 @@ videoconverter-database:
         - watch:
             - file: videoconverter-database
 
-
 videoconverter-cron-final:
     cron.present:
         - name: wget -O  - http://localhost/cron/convert_final.cron.php

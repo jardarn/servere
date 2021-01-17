@@ -23,5 +23,8 @@ base:
         - match: grain
         - ukm
 
+    'roles:videoconverter':
+        - match: grain
+        - ukm
     'vagrant':
         - samba

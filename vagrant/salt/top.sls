@@ -41,6 +41,7 @@ base:
         - match: grain
         - ffmpeg
         - videoconverter
+        - ukmbox-videoconverter
 
     'roles:videostorage':
         - match: grain

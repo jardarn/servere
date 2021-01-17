@@ -6,6 +6,9 @@ include:
     - ukm.subdomains.main
     - ukm.wordpress
     - ukm.husk
+{% elif 'videoconverter' in grains['roles'] %}
+include:
+    - ukm.subdomains.videoconverter
 {% endif %}
 
 ukm:
