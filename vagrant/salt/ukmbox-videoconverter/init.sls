@@ -1,5 +1,6 @@
 include: 
     - videoconverter
+    - ukmlib.config
 
 box-videoconverter-www-folder:
     file.directory:
