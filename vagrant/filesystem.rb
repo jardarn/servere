@@ -12,7 +12,7 @@ end
 def share(box, localpath, serverpath)   
     localpath = requireServerDataFolder(localpath)
     box.vm.synced_folder localpath, serverpath, type: "nfs", create: true
-    puts '    mount point: '+ localpath +' => '+ serverpath
+    #puts '    mount point: '+ localpath +' => '+ serverpath
 end
 
 # Require and copy datapackage files
@@ -26,6 +26,7 @@ def requireDataPackageFiles(source, target, files)
             else
                 $dataPackageMissing << file
             end
+            
         end
     end
 end
