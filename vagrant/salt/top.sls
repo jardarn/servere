@@ -42,6 +42,7 @@ base:
         - ffmpeg
         - videoconverter
         - ukmbox-videoconverter
+        - apache
 
     'roles:videostorage':
         - match: grain
