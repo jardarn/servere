@@ -26,5 +26,7 @@ base:
     'roles:videoconverter':
         - match: grain
         - ukm
+        - php
+        
     'vagrant':
         - samba
