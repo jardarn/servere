@@ -5,6 +5,7 @@ base:
         - ssl
         - vim
         - swap
+        - timezone
 
     'vagrant':
         - samba

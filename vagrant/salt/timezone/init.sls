@@ -1,0 +1,2 @@
+Europe/Oslo:
+    timezone.system
