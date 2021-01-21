@@ -5,6 +5,7 @@ include:
     - apache
     - ssl
     - mysql
+    - ffmpeg
 
 videoconverter-deps:
     pkg.installed:
