@@ -23,6 +23,7 @@
 	"settings": {
 		"search.exclude": {
 			"**/vendor/*": true
-		}
+		},
+		"terminal.integrated.scrollback": 3000
 	}
 }
