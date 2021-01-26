@@ -20,7 +20,10 @@
 	"settings": {
 		"search.exclude": {
 			"**/vendor/*": true
-		}
+		},
+		"xd.globalEditor": true,
+		"xd.lastPackage": "/Users/mariusmandal/Dev/ukm-dummy-dsp/UKM-dummy-dsp",
+		"xd.authorName": "Marius Mandal"
 	},
 	"extensions": {
 		"recommendations": [
@@ -29,6 +32,6 @@
 	},
 	"recommendations": [
 		"bmewburn.vscode-intelephense-client",
-		"bierner.markdown-preview-github-styles"
+		"rebornix.ruby"
 	]
 }
