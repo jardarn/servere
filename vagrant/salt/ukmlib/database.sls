@@ -46,6 +46,28 @@ ukm-database-ss3:
         - watch:
             - file: ukm-database-ss3
 
+ukm-database-id:
+    mysql_database.present:
+        - name: {{ ukm.database.id.name }}
+        - host: localhost
+        - connection_pass: {{ mysql.root_pass }}
+        - require:
+            - pkg: ukmlib
+            - service: mysql-server
+
+    file.managed:
+        - name: /etc/mysql/ukmdev_dev_id.sql
+        - source: salt://ukmlib/files/ukmdev_dev_id.sql
+        - require:
+            - pkg: mysql-server
+
+    cmd.wait:
+        - name: mysql -u root -p{{ mysql.root_pass }} {{ ukm.database.id.name }} < /etc/mysql/ukmdev_dev_id.sql
+        - require:
+            - mysql_database: ukm-database-id
+        - watch:
+            - file: ukm-database-id
+
 {% for database_key in ukm.database if database_key != 'host' %}
     {% set database = ukm.database[ database_key ] %}
     {% for user_key in database.users %}
