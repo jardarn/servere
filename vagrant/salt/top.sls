@@ -32,6 +32,7 @@ base:
         - ukmlib
         - wordpress
         - ukmbox-main
+        - nodejs
     
     'roles:playback':
         - match: grain

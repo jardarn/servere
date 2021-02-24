@@ -20,3 +20,7 @@ python-mysqldb:
 less:
   cmd.run:
     - name: npm install -g less
+
+sass:
+  cmd.run:
+    - name: npm install -g sass
