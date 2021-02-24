@@ -7,7 +7,7 @@ include:
 
 box-main-www-folder:
     file.directory:
-        - name: /var/www/lite/
+        - name: /var/www/
 
 box-main-vhost:
     file.managed:
