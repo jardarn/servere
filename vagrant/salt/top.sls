@@ -36,6 +36,7 @@ base:
     
     'roles:playback':
         - match: grain
+        - ukmlib.config
         - ukmbox-playback
    
     'roles:videoconverter':
