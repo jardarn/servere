@@ -27,11 +27,22 @@
 	},
 	"extensions": {
 		"recommendations": [
-			"bmewburn.vscode-intelephense-client"
+			"bmewburn.vscode-intelephense-client",
+			"adobe.xd",
+			"bierner.markdown-preview-github-styles",
+			"neilbrayfield.php-docblocker",
+			"rebornix.ruby",
+			"mblode.twig-language-2",
+			"wingrunr21.vscode-ruby"
 		]
 	},
 	"recommendations": [
 		"bmewburn.vscode-intelephense-client",
-		"rebornix.ruby"
+		"adobe.xd",
+		"bierner.markdown-preview-github-styles",
+		"neilbrayfield.php-docblocker",
+		"rebornix.ruby",
+		"mblode.twig-language-2",
+		"wingrunr21.vscode-ruby"
 	]
 }
