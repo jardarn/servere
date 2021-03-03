@@ -58,6 +58,18 @@ ukm:
                     name: ukmdev_devwrite
                     pass: devonly
                     grant: 'all privileges'
+        id:
+            name: ukmdev_dev_id
+            users: 
+                user_read:
+                    name: ukmdev_devread
+                    pass: devonly
+                    grant: 'all privileges'
+                user_write:
+                    name: ukmdev_devwrite
+                    pass: devonly
+                    grant: 'all privileges'
+                
     bilder:
         sync_folder: /home/ukmno/private_sync/
     apis:

@@ -41,6 +41,14 @@ define('UKM_DELTA_DB_PASSWORD', '{{ ukm.database.delta.users.user_read.pass }}')
 define('UKM_DELTA_DB_WRITE_USER', '{{ ukm.database.delta.users.user_write.name }}');
 define('UKM_DELTA_DB_WRITE_PASSWORD', '{{ ukm.database.delta.users.user_write.pass }}');
 
+# ID-DB
+define('UKM_ID_DB_HOST', '{{ ukm.database.host }}');
+define('UKM_ID_DB_NAME', 'mysql:{{ ukm.database.id.name }}');
+define('UKM_ID_DB_USER', '{{ ukm.database.id.users.user_read.name }}');
+define('UKM_ID_DB_PASSWORD', '{{ ukm.database.id.users.user_read.pass }}');
+define('UKM_ID_DB_WRITE_USER', '{{ ukm.database.id.users.user_write.name }}');
+define('UKM_ID_DB_WRITE_PASSWORD', '{{ ukm.database.id.users.user_write.pass }}');
+
 # VIDEOCONVERTER
 define('UKM_VIDEOCONVERTER_DB_USER', '{{ videoconverter.database.user }}');
 define('UKM_VIDEOCONVERTER_DB_PASS', '{{ videoconverter.database.pass }}');
