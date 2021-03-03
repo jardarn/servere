@@ -36,7 +36,7 @@ ukm-subdomain-{{subdomain}}-composer:
         - cwd: /var/www/{{subdomain}}
         - require:
             - git: ukm-subdomain-{{subdomain}}-git
-            - cmd: omposer
+            - cmd: composer
             {% if config.parameters is defined and config.parameters %}- ukm-subdomain-{{subdomain}}-parameters{% endif %}
 {% endif %}
 
