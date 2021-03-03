@@ -4,14 +4,15 @@
 {% set h264_version = h264.get('version', '20140803-2245-stable') %}
 {% set h264_version_hash = h264.get('version_hash', 'sha1=c242dfe296e88d73665aa1b3ca1d5de3cc908207') %}
 {% set fdk_aac = pillar.get('fdk_aac', {}) %}
-{% set fdk_aac_version = fdk_aac.get('version', '9a3234055adb1e18f80571925779503c8dec5251') %}
-{% set fdk_aac_version_hash = fdk_aac.get('version_hash', 'sha1=5d8c59819ba32e33996a4607370f63f57d356466') %}
+{% set fdk_aac_version = fdk_aac.get('version', 'v2.0.1') %}
+{% set fdk_aac_version_shortcode = '2.0.1' %}
+{% set fdk_aac_version_hash = fdk_aac.get('version_hash', 'sha1=3684ed4081d006bb476215ccb632b0f241892edf') %}
 {% set vpx = pillar.get('vpx', {}) %}
-{% set vpx_version = vpx.get('version', '1.3.0') %}
-{% set vpx_version_hash = vpx.get('version_hash', 'sha1=f2422e9d14d84a6b48c69dbd1adb2e7fa9653997') %}
+{% set vpx_version = vpx.get('version', '1.9.0') %}
+{% set vpx_version_hash = vpx.get('version_hash', 'sha1=2ab8203ad8922bdf3256e4a197d1348fa8db9a62') %}
 {% set ffmpeg = pillar.get('ffmpeg', {}) %}
-{% set ffmpeg_version = ffmpeg.get('version', '2.3.1') %}
-{% set ffmpeg_version_hash = ffmpeg.get('version_hash', 'sha1=79efcf3a771f42ffed17c4886e4aae6a7a642d7a') %}
+{% set ffmpeg_version = ffmpeg.get('version', '4.3.1') %}
+{% set ffmpeg_version_hash = ffmpeg.get('version_hash', 'sha1=615e8c571dd7959e57fcc579533ec30806189693') %}
 
 ffmpeg-deps:
     pkg.installed:
@@ -37,87 +38,115 @@ ffmpeg-deps:
             - zlib1g-dev
             - yasm
 
-
 h264-source:
     file.managed:
         - name: /usr/local/src/x264-snapshot-{{ h264_version }}.tar.bz2
         - source: http://download.videolan.org/pub/x264/snapshots/x264-snapshot-{{ h264_version }}.tar.bz2
         - source_hash: {{ h264_version_hash }}
 
-    cmd.wait:
+    cmd.run:
         - name: tar xf x264-snapshot-{{ h264_version }}.tar.bz2
         - cwd: /usr/local/src
-        - watch:
-            - file: h264-source
+        - unless: which x264
 
-
-h264:
+h264-make-distclean:
     cmd.wait:
-        - name: ./configure --enable-static --disable-opencl --prefix=/usr/local --bindir=/usr/local/bin &&
-                make &&
-                make install &&
-                make distclean
+        - name: make distclean
         - cwd: /usr/local/src/x264-snapshot-{{ h264_version }}
         - watch:
             - cmd: h264-source
 
+h264-configure:
+    cmd.wait:
+        - name: ./configure --enable-static --enable-pic --disable-opencl --prefix=/usr/local --bindir=/usr/local/bin --extra-cflags="-fno-pie"
+        - cwd: /usr/local/src/x264-snapshot-{{ h264_version }}
+        - watch:
+            - cmd: h264-make-distclean
 
-fdk-aac-source:
-    file.managed:
-        - name: /usr/local/src/fdk-aac-{{ fdk_aac_version }}.tar.gz
-        - source: https://github.com/mstorsjo/fdk-aac/tarball/{{ fdk_aac_version }}
+h264-make:
+    cmd.wait:
+        - name: make
+        - cwd: /usr/local/src/x264-snapshot-{{ h264_version }}
+        - require: [ h264-make-distclean ]
+        - watch:
+            - cmd: h264-configure
+
+h264-make-install:
+    cmd.wait:
+        - name: make install
+        - cwd: /usr/local/src/x264-snapshot-{{ h264_version }}
+        - require: [ h264-make ]
+        - watch:
+            - cmd: h264-make
+
+fdk-aac-folder:
+    archive.extracted:
+        - name: /usr/local/src
+        - source: https://github.com/mstorsjo/fdk-aac/archive/{{ fdk_aac_version }}.tar.gz
         - source_hash: {{ fdk_aac_version_hash }}
-
-    cmd.wait:
-        - name: tar xf fdk-aac-{{ fdk_aac_version }}.tar.gz
-        - cwd: /usr/local/src
-        - watch:
-            - file: fdk-aac-source
-
-
-fdk-aac:
-    cmd.wait:
-        - name: cd mstorsjo-fdk-aac* &&
-                autoreconf -fiv &&
-                ./configure --prefix=/usr/local --disable-shared &&
-                make &&
-                make install &&
-                make distclean
-        - cwd: /usr/local/src
-        - watch:
-            - cmd: fdk-aac-source
-
-
-libvpx-source:
-    file.managed:
-        - name: /usr/local/src/libvpx-v{{ vpx_version }}.tar.gz
-        #- source: https://webm.googlecode.com/files/libvpx-v1.3.0.tar.bz2
-        - source: https://github.com/webmproject/libvpx/archive/v1.3.0.tar.gz
-        - source_hash: {{ vpx_version_hash }}
-
-    cmd.wait:
-        - name: tar xf libvpx-v{{ vpx_version }}.tar.gz
-        - cwd: /usr/local/src
-        - watch:
-            - file: libvpx-source
-
-
-libvpx:
-    file.directory:
-        - name: /usr/local/src/libvpx-v{{ vpx_version }}
+        - archive_format: tar
         - mode: 775
         - user: vagrant
         - group: vagrant
         - makedirs: True
+
+fdk-aac-autoreconf:
+    cmd.run:
+        - name: autoreconf -fiv
+        - cwd: /usr/local/src/fdk-aac-{{ fdk_aac_version_shortcode }}
+        - unless:
+            - ls /usr/local/lib/libfdk-aac.a
+
+fdk-aac-configure:
     cmd.wait:
+        - name: ./configure --prefix=/usr/local --disable-shared
+        - cwd: /usr/local/src/fdk-aac-{{ fdk_aac_version_shortcode }}
+        - watch:
+            - cmd: fdk-aac-autoreconf
+
+fdk-aac-make:
+    cmd.wait:
+        - name: make &&
+                make install &&
+                make distclean
+        - cwd: /usr/local/src/fdk-aac-{{ fdk_aac_version_shortcode }}
+        - watch:
+            - cmd: fdk-aac-configure
+
+libvpx-source:
+    archive.extracted:
+        - name: /usr/local/src
+        - source: https://github.com/webmproject/libvpx/archive/v{{ vpx_version }}.tar.gz
+        - source_hash: {{ vpx_version_hash }}
+        - archive_format: tar
+        - mode: 775
+        - user: vagrant
+        - group: vagrant
+        - recurse:
+            - user
+            - group
+            - mode
+        - makedirs: True
+
+libvpx:
+    file.directory:
+        - name: /usr/local/src/libvpx-{{ vpx_version }}
+        - mode: 775
+        - user: vagrant
+        - group: vagrant
+        - recurse:
+            - user
+            - group
+            - mode
+        - makedirs: True
+    cmd.run:
         - name: ./configure --prefix=/usr/local --disable-examples &&
                 make &&
                 make install &&
                 make clean
-        - cwd: /usr/local/src/libvpx-v{{ vpx_version }}
-        - watch:
-            - cmd: libvpx-source
-
+        - cwd: /usr/local/src/libvpx-{{ vpx_version }}
+        - unless: ls /usr/local/lib/libvpx.a
+        - require: [ libvpx-source ] 
 
 ffmpeg-source:
     file.managed:
@@ -131,10 +160,32 @@ ffmpeg-source:
         - watch:
             - file: ffmpeg-source
 
-ffmpeg:
+ffmpeg-distclean:
+    cmd.run:
+        - name: ./configure
+                --prefix=/usr/local
+                --extra-cflags=-I/usr/local/include
+                --extra-ldflags=-L/usr/local/lib
+                --bindir=/usr/local/bin
+                --enable-gpl
+                --enable-libass
+                --enable-libfdk-aac
+                --enable-libfreetype
+                --enable-libmp3lame
+                --enable-libtheora
+                --enable-libvorbis
+                --enable-libvpx
+                --enable-libx264
+                --enable-nonfree && 
+                make distclean
+        - cwd: /usr/local/src/ffmpeg-{{ ffmpeg_version }}
+        - unless: which ffmpeg
+
+ffmpeg-configure:
     cmd.wait:
         - env:
             PKG_CONFIG_PATH: /usr/local/lib/pkgconfig
+        - cwd: /usr/local/src/ffmpeg-{{ ffmpeg_version }}
         - name: ./configure
                 --prefix=/usr/local
                 --extra-cflags=-I/usr/local/include
@@ -150,15 +201,19 @@ ffmpeg:
                 --enable-libvpx
                 --enable-libx264
                 --enable-nonfree
-                --enable-x11grab &&
-                make &&
-                make install &&
-                make distclean
+        - watch: 
+            - ffmpeg-distclean
+
+ffmpeg-make:
+    cmd.wait:
+        - name: make
         - cwd: /usr/local/src/ffmpeg-{{ ffmpeg_version }}
-        - require:
-            - pkg: ffmpeg-deps
-            - cmd: fdk-aac
-            - cmd: h264
-            - cmd: libvpx
         - watch:
-            - cmd: ffmpeg-source
+            - ffmpeg-configure
+        
+ffmpeg-make-install:
+    cmd.wait:
+        - name: make install
+        - cwd: /usr/local/src/ffmpeg-{{ ffmpeg_version }}
+        - watch: 
+            - ffmpeg-make

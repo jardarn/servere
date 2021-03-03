@@ -16,14 +16,15 @@
 			"path": "./shared/playback/www/_playbackserver",
 			"name": "VM: playback"
 		},
+		{
+			"path": "shared/videoconverter/videoconverter"
+		}
 	],
 	"settings": {
 		"search.exclude": {
 			"**/vendor/*": true
 		},
-		"xd.globalEditor": true,
-		"xd.lastPackage": "/Users/mariusmandal/Dev/ukm-dummy-dsp/UKM-dummy-dsp",
-		"xd.authorName": "Marius Mandal"
+		"terminal.integrated.scrollback": 3000
 	},
 	"extensions": {
 		"recommendations": [

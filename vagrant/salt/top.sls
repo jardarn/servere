@@ -5,6 +5,7 @@ base:
         - ssl
         - vim
         - swap
+        - timezone
 
     'vagrant':
         - samba
@@ -43,6 +44,8 @@ base:
         - match: grain
         - ffmpeg
         - videoconverter
+        - ukmbox-videoconverter
+        - apache
 
     'roles:videostorage':
         - match: grain
