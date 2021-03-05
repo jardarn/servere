@@ -276,3 +276,13 @@ include:
     - ukmbox-main.subdomains.download
     - ukmbox-main.subdomains.tv
 ```
+
+
+Wordpress
+===
+
+## Plugins
+I mappen [VM: main/plugins](shared/main/plugins) finner du alle wordpress-plugins som vi benytter. Siden 2019 har vi brukt en felles [Modul](https://github.com/UKMNorge/UKMapi/blob/master/Wordpress/Modul.php)-klasse for å standardisere koden vår, og her finner du [dokumentasjon](https://github.com/UKMNorge/UKMapi/blob/master/Wordpress/README.md).
+
+## Themes
+I mappen [VM: main/themes](shared/main/themes) finner du alle wordpress-themes som vi benytter (og dette heter [UKMNorge\UKMDesignWordpress](https://github.com/UKMNorge/UKMDesignWordpress)).
