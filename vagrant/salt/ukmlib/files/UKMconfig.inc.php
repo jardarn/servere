@@ -133,7 +133,7 @@ define('DOWNLOAD_PATH_WORD', DOWNLOAD_PATH . 'word/');
 define('DOWNLOAD_PATH_ZIP', DOWNLOAD_PATH . 'zip/');
 define('DOWNLOAD_PATH_CSV', DOWNLOAD_PATH . 'csv/');
 
-define('DOWNLOAD_URL', 'http://download.'. UKM_HOSTNAME .'/');
+define('DOWNLOAD_URL', 'https://download.'. UKM_HOSTNAME .'/');
 define('DOWNLOAD_URL_EXCEL', DOWNLOAD_URL .'excel/');
 define('DOWNLOAD_URL_WORD', DOWNLOAD_URL .'word/');
 define('DOWNLOAD_URL_ZIP', DOWNLOAD_URL .'zip/');
