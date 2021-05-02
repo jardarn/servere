@@ -4,6 +4,7 @@
 <?php
 
 define('UKM_HOSTNAME', '{{ ukm.hostname }}');
+define('PLUGIN_PATH', '//{{ ukm.hostname }}/wp-content/plugins/');
 define('UKM_SALT', '{{ukm.genericsalt}}');
 
 ## EMAIL SETTINGS
