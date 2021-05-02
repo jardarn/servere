@@ -3,6 +3,8 @@ subdomains:
         subdomain: assets
         github: https://github.com/UKMNorge/UKMDesignAssets.git
         composer: false
+    download:
+        subdomain: download
     id:
         subdomain: id
         github: https://github.com/UKMNorge/ID.git
