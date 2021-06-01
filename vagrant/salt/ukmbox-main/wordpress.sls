@@ -68,6 +68,13 @@ wordpress-uploads:
         - watch:
             - file: wordpress-uploads
 
+wordpress-uploads-mode:
+    file.directory: 
+        - name: /var/www/wordpress/wp-content/uploads/
+        - mode: 777
+        - require:
+            - wordpress-uploads
+
 # ADD THEME (UKMDESIGN)
 ukmdesignwordpress-git:
     git.latest:
