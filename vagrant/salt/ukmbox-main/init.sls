@@ -9,6 +9,11 @@ box-main-www-folder:
     file.directory:
         - name: /var/www/
 
+box-main-bilder-sync-folder:
+    file.directory:
+        - name: /home/ukmno/private_sync;
+        - mode: 777
+
 box-main-vhost:
     file.managed:
         - name: /etc/apache2/sites-enabled/ukm.dev.conf
