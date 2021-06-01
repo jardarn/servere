@@ -33,6 +33,8 @@ subdomains:
         parameters:
             target: /var/www/husk/app/config/parameters.yml
             source: salt://ukmbox-main/files/params-husk.yml.j2
+    liker:
+        subdomain: liker
     pressemelding:
         subdomain: pressemelding
         github: https://github.com/UKMNorge/UKMpressemelding.git
