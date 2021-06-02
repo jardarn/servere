@@ -69,6 +69,14 @@ ukm:
                     name: ukmdev_devwrite
                     pass: devonly
                     grant: 'all privileges'
+        husk:
+            name: ukmhusk_db
+            users:
+                user_husk:
+                    name: ukmhusk_user
+                    pass: devonly
+                    grant: 'all privileges'
+
                 
     bilder:
         sync_folder: /home/ukmno/private_sync/

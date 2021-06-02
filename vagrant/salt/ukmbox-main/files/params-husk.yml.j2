@@ -5,9 +5,9 @@
 parameters:
     database_host: 127.0.0.1
     database_port: null
-    database_name: {{ husk.database }}
-    database_user: {{ husk.username }}
-    database_password: '{{ husk.password }}'
+    database_name: {{ ukm.database.husk.name }}
+    database_user: {{ ukm.database.husk.users.user_husk.name }}
+    database_password: '{{ ukm.database.husk.users.user_husk.pass }}'
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
