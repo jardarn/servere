@@ -11,7 +11,7 @@ box-main-www-folder:
 
 box-main-bilder-sync-folder:
     file.directory:
-        - name: /home/ukmno/private_sync;
+        - name: /home/ukmno/private_sync
         - mode: 777
 
 box-main-vhost:
