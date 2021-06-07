@@ -68,6 +68,15 @@ ukm-database-id:
         - watch:
             - file: ukm-database-id
 
+ukm-database-husk:
+    mysql_database.present:
+        - name: {{ ukm.database.husk.name }}
+        - host: localhost
+        - connection_pass: {{ mysql.root_pass }}
+        - require:
+            - pkg: ukmlib
+            - service: mysql-server
+
 {% for database_key in ukm.database if database_key != 'host' %}
     {% set database = ukm.database[ database_key ] %}
     {% for user_key in database.users %}
