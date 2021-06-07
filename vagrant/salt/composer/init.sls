@@ -4,7 +4,7 @@ get-composer:
     - unless: test -f /usr/local/bin/composer
     - cwd: /root/
 
-composer:
+install-composer:
   cmd.wait:
     - name: mv /root/composer.phar /usr/local/bin/composer
     - cwd: /root/
