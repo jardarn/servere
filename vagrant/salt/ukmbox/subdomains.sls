@@ -31,12 +31,12 @@ ukm-subdomain-{{subdomain}}-parameters:
 
 {% if config.composer is defined and config.composer %}
 ukm-subdomain-{{subdomain}}-composer:
-    cmd.run:
-        - name: composer install
+    composer.installed:
+        - no_dev: false
         - cwd: /var/www/{{subdomain}}
         - require:
             - git: ukm-subdomain-{{subdomain}}-git
-            - cmd: composer
+            - cmd: install-composer
             {% if config.parameters is defined and config.parameters %}- ukm-subdomain-{{subdomain}}-parameters{% endif %}
 {% endif %}
 
