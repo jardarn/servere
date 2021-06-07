@@ -35,3 +35,5 @@ ukmdesign_git:
     git.latest:
         - name: https://github.com/UKMNorge/UKMDesign.git
         - target: /var/www/wordpress/wp-content/themes/UKMDesign
+        - require:
+            - service: apache
